@@ -1,0 +1,19 @@
+{
+  "name": "agile-fe",
+  "version": "1.0.0",
+  "description": "front end user interface to the skills auditor API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://nadia-rashad@github.com/nadia-rashad/agile-fe.git"
+  },
+  "author": "Nadia Rashad, Archie Sanger-Davies and Rebecca Gauntlett",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nadia-rashad/agile-fe/issues"
+  },
+  "homepage": "https://github.com/nadia-rashad/agile-fe#readme"
+}
