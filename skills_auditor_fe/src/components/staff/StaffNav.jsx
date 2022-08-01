@@ -13,7 +13,7 @@ function StaffNav() {
           <br></br>
          
         
-          <Nav.Link href="/home" className='LogOut'>Log out</Nav.Link>
+          <Nav.Link href="/" className='LogOut'>Log out</Nav.Link>
         </Nav>
         </div>
       );
