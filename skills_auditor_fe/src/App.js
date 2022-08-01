@@ -1,27 +1,22 @@
-import logo from './logo.svg';
 import './App.css';
 import * as api from './api';
-import React, { useEffect, useState } from 'react'
+import React from 'react';
+import { Router } from '@gatsbyjs/reach-router';
+import Home from './components/Home';
+import StaffAddSkill from './components/staff/StaffAddSkill';
+import StaffViewEditSkill from './components/staff/StaffViewEditSkill';
+import StaffDetails from './components/staff/StaffDetails';
 
 function App() {
 
-  const [staff, getStaff] = useState([])
-
-useEffect(() => {
- api.fetchStaff().then(res => {
-  getStaff(res.data);
- }).catch((err) => {
- })
-}, [])
-
-
   return (
     <div className="App">
-      <header className="App-header">
-
-        <p>Firstname of staff member in array is: {staff[0].firstName}</p>
-
-      </header>
+        <Router>
+         <Home path="/" />
+         <StaffAddSkill path='/add_skill'/>
+         <StaffViewEditSkill path='/view_edit_skill'/>
+         <StaffDetails path='/my_details'/>
+        </Router>
     </div>
   );
 }
