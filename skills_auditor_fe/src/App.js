@@ -13,9 +13,9 @@ function App() {
     <div className="App">
         <Router>
          <Home path="/" />
-         <StaffAddSkill path='/add_skill'/>
-         <StaffViewEditSkill path='/view_edit_skill'/>
-         <StaffDetails path='/my_details'/>
+         <StaffAddSkill path='/staff/add_skill'/>
+         <StaffViewEditSkill path='/staff/view_edit_skill'/>
+         <StaffDetails path='/staff/my_details'/>
         </Router>
     </div>
   );
