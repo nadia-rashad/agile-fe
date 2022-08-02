@@ -1,23 +1,28 @@
-import logo from './logo.svg';
 import './App.css';
+import * as api from './api';
+import React from 'react';
+import Home from './components/Home';
+import StaffAddSkill from './components/staff/StaffAddSkill';
+import StaffViewEditSkill from './components/staff/StaffViewEditSkill';
+import StaffDetails from './components/staff/StaffDetails';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route
+} from "react-router-dom";
 
 function App() {
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        <Router>
+        <Routes>
+        <Route exact path="/" element={<Home/>} />
+        <Route exact path='/staff/view_edit_skill' element={<StaffViewEditSkill/>} />
+        <Route exact path='/staff/add_skill' element={<StaffAddSkill/>} />
+        <Route exact path='/staff/my_details' element={<StaffDetails/>} />
+        </Routes>
+        </Router>
     </div>
   );
 }
