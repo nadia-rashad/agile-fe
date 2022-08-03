@@ -1,5 +1,4 @@
 import './components/styles/styles.css';
-import * as api from './api';
 import React from 'react';
 import Home from './components/Home';
 import StaffAddSkill from './components/staff/StaffAddSkill';
