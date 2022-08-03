@@ -1,9 +1,12 @@
-import StaffNav from "./StaffNav";
+import '../styles/styles.css'
 
 function StaffDetails() {
     return (
-        <StaffNav/>
+            <div  className="container">
+    <p>staff details</p>
+</div>
     )
+
 }
 
 export default StaffDetails;
