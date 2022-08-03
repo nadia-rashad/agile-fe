@@ -25,6 +25,7 @@ function StaffDetails() {
     const onInputTitle =  ({target:{value}}) => setTitle(value);
 
     const notify = () => toast('Updated user details saved');
+    const errorNotification = () => toast('There has been an error submitting your request');
 
     const onFormSubmit = async (e) => {
       e.preventDefault()
@@ -52,13 +53,13 @@ function StaffDetails() {
             setJobRoleId(res.data[0].job_role_id);
             setTitle(res.data[0].title);
             setId(res.data[0].id);
-            }).catch((err) => console.log(err));
+            }).catch((err) =>toast(err.message));
         }
 
         async function fetchJobName () { 
             await api.fetchJobRoleById(jobRoleId).then((res) => {
             setJobRole(res.data[0].description);
-         }).catch((err) => console.log(err));
+         }).catch((err) => toast(err.message));
         }
         fetchData();
         fetchJobName();
