@@ -1,11 +1,13 @@
-import StaffNav from "./StaffNav";
+import '../styles/styles.css'
 
 function StaffAddSkill() {
     
+return(
+    <div  className="container">
+        <p>add skill</p>
+    </div>
+)
 
-    return (
-        <StaffNav/>
-    )
 }
 
 export default StaffAddSkill;

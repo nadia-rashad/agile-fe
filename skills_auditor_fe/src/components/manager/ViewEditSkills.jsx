@@ -1,6 +1,6 @@
 import '../styles/styles.css'
 
-function StaffViewEditSkill() {
+function ViewEditSkills() {
     return (
         <div  className="container">
             <p>view edit skills</p>
@@ -8,4 +8,4 @@ function StaffViewEditSkill() {
     )
 }
 
-export default StaffViewEditSkill;
+export default ViewEditSkills;
