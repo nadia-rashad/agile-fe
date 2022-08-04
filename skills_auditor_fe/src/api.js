@@ -15,6 +15,5 @@ export const fetchJobRoleById = (id) => {
 }
 
 export const updatePersonalDetails = (staff) => {
-    console.log(staff);
     return Axios.put(`${BaseURL}staff/`, staff)
 }
