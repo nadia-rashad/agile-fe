@@ -4,6 +4,18 @@ import { useState } from "react";
 export default function Navbar() {
     const [isNavExpanded, setIsNavExpanded] = useState(false);
     const [isLoggedIn, setLoggedIn] = useState(true);
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [loggedInUser, setLoggedInUser] = useState({});
+
+    const handleLogout = () => {
+      setLoggedInUser({});
+      setEmail("");
+      setPassword("");
+      localStorage.clear();
+    };
+
+    console.log(loggedInUser);
 
 
     return (
@@ -14,7 +26,6 @@ export default function Navbar() {
         <button className="hamburger" onClick={() => {
           setIsNavExpanded(!isNavExpanded);
         }}>
-          {/* icon from heroicons.com */}
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-5 w-5"
@@ -74,7 +85,7 @@ export default function Navbar() {
                 <a href='/manager/view_edit_staff'>Manager view edit staff</a>
             </li>
             <li>
-              <a href="/home">LogOut</a>
+              <a href="/" onClick={handleLogout}>LogOut</a>
             </li>
           </ul>
         }

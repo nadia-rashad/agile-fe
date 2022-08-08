@@ -17,3 +17,7 @@ export const fetchJobRoleById = (id) => {
 export const updatePersonalDetails = (staff) => {
     return Axios.put(`${BaseURL}staff/`, staff)
 }
+
+export const checkUserCredentials = (userCredentials) => {
+    return Axios.get(`${BaseURL}`, {params: {details: userCredentials}})
+}
