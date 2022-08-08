@@ -14,6 +14,14 @@ export const fetchJobRoleById = (id) => {
     return Axios.get(`${BaseURL}job_role/id/${id}`);
 }
 
+export const fetchJobRoles = () => {
+    return Axios.get(`${BaseURL}job_role/`) 
+}   
+
 export const updatePersonalDetails = (staff) => {
+    return Axios.put(`${BaseURL}staff/`, staff)
+}
+
+export const addStaff = (staff) => {
     return Axios.put(`${BaseURL}staff/`, staff)
 }
