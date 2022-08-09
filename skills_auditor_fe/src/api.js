@@ -18,6 +18,10 @@ export const updatePersonalDetails = (staff) => {
     return Axios.put(`${BaseURL}staff/`, staff)
 }
 
+export const addCategory = (category) => {
+    return Axios.post(`${BaseURL}category/`, category)
+}
+    
 export const addNewSkill = (skill) => {
     return Axios.post(`${BaseURL}skill`, skill)
 }
