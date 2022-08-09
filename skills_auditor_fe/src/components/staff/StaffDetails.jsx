@@ -2,8 +2,7 @@ import '../styles/styles.css';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import * as api from '../../api.js';
-import { useState } from "react";
-import { useEffect } from 'react';
+import { useState, useEffect } from "react";
 import toast, { Toaster } from 'react-hot-toast';
 
 function StaffDetails() {

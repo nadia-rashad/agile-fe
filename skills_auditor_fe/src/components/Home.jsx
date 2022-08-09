@@ -23,19 +23,23 @@ function Home() {
           email: email,
           password: password
         }
+
        await api.checkUserCredentials(loginDetails).then((res) => {
+
         if(res.data && Object.keys(res.data).length === 0 ) {
+          localStorage.setItem('loggedInUser', {});
          toast('Unsuccessful login, please check your details')
         }
+
         else {
           setLoggedInUser(res.data);
+          localStorage.clear();
           localStorage.setItem('loggedInUser', JSON.stringify(res.data));
           notify();
-        } 
+        
+        }
        })
       }
-
-      console.log(loggedInUser);
 
       useEffect(() => {
         const loggedInUser = localStorage.getItem("user");
@@ -48,6 +52,8 @@ function Home() {
     return(
         <div className='container'>
 
+          {Object.keys(loggedInUser).length > 0 ? <p>hello {loggedInUser.firstName}</p> :
+          
      <Form onSubmit={onFormSubmit}>
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>Email address</Form.Label>
@@ -72,6 +78,7 @@ function Home() {
     },
   }}/>
     </Form>
+}
        </div>
     )
 }

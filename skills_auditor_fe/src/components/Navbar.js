@@ -1,5 +1,5 @@
 import './Navbar.css';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function Navbar() {
     const [isNavExpanded, setIsNavExpanded] = useState(false);
@@ -12,17 +12,30 @@ export default function Navbar() {
       setLoggedInUser({});
       setEmail("");
       setPassword("");
+      setLoggedInUser({})
+      localStorage.setItem('loggedInUser', {});
       localStorage.clear();
+      setLoggedIn(false);
     };
+   
+     useEffect(()=> {
+       const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
 
-    console.log(loggedInUser);
+      if (loggedInUser) {
+        setLoggedInUser(loggedInUser);
+        setLoggedIn(true);
+       }
+     }, [])
 
 
     return (
+      <div>      
         <nav className="navigation">
         <a href="/" className="brand-name">
           Skills Auditor
         </a>
+
+              
         <button className="hamburger" onClick={() => {
           setIsNavExpanded(!isNavExpanded);
         }}>
@@ -38,11 +51,31 @@ export default function Navbar() {
               clipRule="evenodd"
             />
           </svg>
+        </button> 
+        <button className="hamburger" onClick={() => {
+          setIsNavExpanded(!isNavExpanded);
+        }}>
+
+
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-5 w-5"
+            viewBox="0 0 20 20"
+            fill="white"
+          >
+            <path
+              fillRule="evenodd"
+              d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM9 15a1 1 0 011-1h6a1 1 0 110 2h-6a1 1 0 01-1-1z"
+              clipRule="evenodd"
+            />
+          </svg>
         </button>
+
         <div
          className={
             isNavExpanded ? "navigation-menu expanded" : "navigation-menu"}>
-                {!isLoggedIn ?   <ul>
+               
+            <ul>
             <li>
               <a href="/home">Home</a>
             </li>
@@ -52,7 +85,7 @@ export default function Navbar() {
             <li>
               <a href="/contact">Contact</a>
             </li>
-          </ul> : 
+          </ul> 
           <ul>
             <li>
               <a href="/staff/my_details">Staff My details</a>
@@ -85,11 +118,14 @@ export default function Navbar() {
                 <a href='/manager/view_edit_staff'>Manager view edit staff</a>
             </li>
             <li>
-              <a href="/" onClick={handleLogout}>LogOut</a>
+              <a onClick={handleLogout} href='/'>Log out</a>
             </li>
+      
           </ul>
-        }
+        
         </div>
       </nav>
+      </div>
+    
       )
   }
