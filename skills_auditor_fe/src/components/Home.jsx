@@ -24,11 +24,18 @@ function Home() {
           password: password
         }
        await api.checkUserCredentials(loginDetails).then((res) => {
-         setLoggedInUser(res.data);
-         localStorage.setItem('loggedInUser', JSON.stringify(res.data))
+        if(res.data && Object.keys(res.data).length === 0 ) {
+         toast('Unsuccessful login, please check your details')
+        }
+        else {
+          setLoggedInUser(res.data);
+          localStorage.setItem('loggedInUser', JSON.stringify(res.data));
+          notify();
+        } 
        })
-       notify();
       }
+
+      console.log(loggedInUser);
 
       useEffect(() => {
         const loggedInUser = localStorage.getItem("user");
