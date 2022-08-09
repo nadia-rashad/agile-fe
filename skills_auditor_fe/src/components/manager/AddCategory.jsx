@@ -6,11 +6,11 @@ import { useState } from "react";
 import toast, { Toaster } from 'react-hot-toast';
 
 function AddCategory(){
+
     const [description, setDescription] = useState('');
     const onInputDescription = ({target:{value}}) => {
-        setDescription(value)};
-
-    const notify = () => toast('Category added');
+        setDescription(value)
+    };
     
     const onFormSubmit = async (e) => {
         e.preventDefault()
@@ -18,8 +18,16 @@ function AddCategory(){
         const categoryDetails = {
           description: description
         }
-       await api.addCategory(categoryDetails)
-       notify();
+
+       await api.addCategory(categoryDetails).then((res) => {
+        if(res.status === 201){
+            toast("Category added")
+            setDescription('')
+        }
+        else {
+            toast(res.data.message)
+        }
+       })
     }
 
 
@@ -32,7 +40,7 @@ return (
             </Form.Group>
 
             <br></br>
-            <Button variant="primary" type="submit" >
+            <Button variant="primary" type="submit" disabled={!description}>
                 Add Category
             </Button>
 
