@@ -24,3 +24,8 @@ body {
 article h1 {
   margin: 1rem 0;
 }
+
+.dropdown-menu {
+  height: 300px;
+  overflow-y: scroll;
+}

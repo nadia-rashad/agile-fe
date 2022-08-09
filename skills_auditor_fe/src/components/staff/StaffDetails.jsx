@@ -26,6 +26,7 @@ function StaffDetails() {
    
     const notify = () => toast('Updated user details saved');
 
+
     useEffect(()=> {
       const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
 
@@ -48,6 +49,7 @@ function StaffDetails() {
     }
     fetchJobName();
   }, [jobRoleId, userData.firstName, userData.surname,userData.email,userData.password, userData.job_role_id, userData.title, userData.id  ])
+
 
 
     const onFormSubmit = async (e) => {
@@ -94,6 +96,7 @@ return (
         Save
       </Button>
       <Toaster toastOptions={{
+
     className: '',
     style: {
       border: '2px solid green',
@@ -101,6 +104,7 @@ return (
       color: '#713200',
     },
   }}/>
+      
     </Form>
 </div>
     )
