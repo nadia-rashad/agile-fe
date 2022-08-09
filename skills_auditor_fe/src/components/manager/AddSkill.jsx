@@ -75,7 +75,7 @@ function AddSkill(){
              </Dropdown> 
              <br></br>
 
-             <Button variant="primary" type="submit" disabled={!skillName && !selectedCategory} >
+             <Button variant="primary" type="submit" disabled={!skillName || !selectedCategory} >
              Save
              </Button>
              <Toaster toastOptions={{

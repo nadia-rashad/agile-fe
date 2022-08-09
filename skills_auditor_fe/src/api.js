@@ -23,7 +23,7 @@ export const updatePersonalDetails = (staff) => {
 }
 
 export const addStaff = (staff) => {
-    return Axios.put(`${BaseURL}staff/`, staff)
+    return Axios.post(`${BaseURL}staff/`, staff)
 }
 
 export const addNewSkill = (skill) => {
@@ -36,4 +36,20 @@ export const fetchAllCategories = () => {
 
 export const fetchCategoryId = (description) => {
     return Axios.get(`${BaseURL}category/desc/${description}`)
+}
+
+export const fetchAllJobRoles = () => {
+    return Axios.get(`${BaseURL}job_role`)
+}
+
+export const fetchJobRoleId = (description) => {
+    return Axios.get(`${BaseURL}job_role/desc/${description}`)
+}
+
+export const fetchAllSystemRoles = () => {
+    return Axios.get(`${BaseURL}system_role`)
+}
+
+export const fetchSystemRoleId = (description) => {
+    return Axios.get(`${BaseURL}system_role/desc/${description}`)
 }
