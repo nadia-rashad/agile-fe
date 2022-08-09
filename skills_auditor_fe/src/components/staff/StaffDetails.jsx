@@ -25,7 +25,6 @@ function StaffDetails() {
     const onInputTitle =  ({target:{value}}) => setTitle(value);
 
     const notify = () => toast('Updated user details saved');
-    const errorNotification = () => toast('There has been an error submitting your request');
 
     const onFormSubmit = async (e) => {
       e.preventDefault()
@@ -59,7 +58,7 @@ function StaffDetails() {
         async function fetchJobName () { 
             await api.fetchJobRoleById(jobRoleId).then((res) => {
             setJobRole(res.data[0].description);
-         }).catch((err) => toast(err.message));
+         }).catch((err) => console.log(err));
         }
         fetchData();
         fetchJobName();
@@ -96,13 +95,13 @@ return (
         Save
       </Button>
       <Toaster toastOptions={{
-    className: '',
-    style: {
-      border: '2px solid #713200',
-      padding: '16px',
-      color: '#713200',
-    },
-  }}/>
+        className: '',
+        style: {
+          border: '2px solid #713200',
+          padding: '16px',
+          color: '#713200',
+        },
+      }}/>
     </Form>
 </div>
     )
