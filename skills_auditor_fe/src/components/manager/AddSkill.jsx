@@ -24,7 +24,7 @@ function AddSkill(){
             })
         }
         fetchCategories();
-    }, [])
+    }, [categories])
 
 
     const handleSelect= async (e)=>{
@@ -63,14 +63,17 @@ function AddSkill(){
             <Form onSubmit={onFormSubmit}>
              <Form.Label >Skill Name</Form.Label>
              <Form.Control type="text" onChange={onInputSkillName} value={skillName} />
+
+           <br></br>
              <Dropdown>
-             <DropdownButton title={selectedCategory ? selectedCategory : "Categories"} onSelect={handleSelect}>
+             <DropdownButton title={selectedCategory ? selectedCategory : "Categories"} onSelect={handleSelect} >
 
              {!categories? 'No Categories to display':  categories.map((categories) => {
-                     return <Dropdown.Item value={categories.description} eventKey={categories.description} >{categories.description}</Dropdown.Item>
+                     return <Dropdown.Item value={categories.description} eventKey={categories.description} key={categories.id}  >{categories.description}</Dropdown.Item>
                     }) }
              </DropdownButton>
              </Dropdown> 
+             <br></br>
 
              <Button variant="primary" type="submit" disabled={!skillName && !selectedCategory} >
              Save
@@ -83,7 +86,7 @@ function AddSkill(){
                 color: '#713200',
                 },
             }}/>
-            </Form>
+             </Form>
         </div>
     )
 }
