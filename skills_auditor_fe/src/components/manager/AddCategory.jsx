@@ -4,7 +4,6 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import * as api from '../../api.js';
 import { useState } from "react";
-import { useEffect } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 
 function AddCategory(){
@@ -13,8 +12,6 @@ function AddCategory(){
         setDescription(value)};
 
     const notify = () => toast('Category added');
-    const categoryAlreadyExists = () => toast('Category already exists')
-    const errorNotification = () => toast('There has been an error submitting your request');
     
     const onFormSubmit = async (e) => {
         e.preventDefault()
