@@ -24,7 +24,7 @@ function AddSkill(){
             })
         }
         fetchCategories();
-    }, [categories])
+    }, [])
 
 
     const handleSelect= async (e)=>{
