@@ -54,7 +54,7 @@ function AddStaff() {
        
     }
 
-    const convertSelectedSystemRoletoId= async (e)=>{
+    const convertSelectedSystemRoleToId= async (e)=>{
         setSystemRole(e);
 
         await api.fetchSystemRoleId(e).then((res) => {
@@ -131,7 +131,7 @@ function AddStaff() {
                     <Form.Label >System Role</Form.Label> 
                     <br></br>
                     <Dropdown>
-                    <DropdownButton title={selectedSystemRole ? selectedSystemRole : "System Roles"} onSelect={convertSelectedSystemRoletoId} >
+                    <DropdownButton title={selectedSystemRole ? selectedSystemRole : "System Roles"} onSelect={convertSelectedSystemRoleToId} >
 
                     {!systemRoles? 'No system roles to display':  systemRoles.map((systemRoles) => {
                         return <Dropdown.Item value={systemRoles.description} eventKey={systemRoles.description} key={systemRoles.id}  >{systemRoles.description}</Dropdown.Item>
