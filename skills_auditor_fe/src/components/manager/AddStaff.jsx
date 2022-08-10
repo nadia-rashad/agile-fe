@@ -45,7 +45,7 @@ function AddStaff() {
         fetchSystemRoles();
     }, [])
 
-    const handleSelectJobRole= async (e)=>{
+    const convertSelectedJobRoleToId = async (e)=>{
         setJobRole(e);
 
         await api.fetchJobRoleId(e).then((res) => {
@@ -54,7 +54,7 @@ function AddStaff() {
        
     }
 
-    const handleSelectSystemRole= async (e)=>{
+    const convertSelectedSystemRoletoId= async (e)=>{
         setSystemRole(e);
 
         await api.fetchSystemRoleId(e).then((res) => {
@@ -118,7 +118,7 @@ function AddStaff() {
 
                     <br></br>
                     <Dropdown>
-                    <DropdownButton title={selectedJobRole ? selectedJobRole : "Job Roles"} onSelect={handleSelectJobRole} >
+                    <DropdownButton title={selectedJobRole ? selectedJobRole : "Job Roles"} onSelect={convertSelectedJobRoleToId} >
 
                     {!jobRoles? 'No job roles to display':  jobRoles.map((jobRoles) => {
                         return <Dropdown.Item value={jobRoles.description} eventKey={jobRoles.description} key={jobRoles.id}  >{jobRoles.description}</Dropdown.Item>
@@ -131,7 +131,7 @@ function AddStaff() {
                     <Form.Label >System Role</Form.Label> 
                     <br></br>
                     <Dropdown>
-                    <DropdownButton title={selectedSystemRole ? selectedSystemRole : "System Roles"} onSelect={handleSelectSystemRole} >
+                    <DropdownButton title={selectedSystemRole ? selectedSystemRole : "System Roles"} onSelect={convertSelectedSystemRoletoId} >
 
                     {!systemRoles? 'No system roles to display':  systemRoles.map((systemRoles) => {
                         return <Dropdown.Item value={systemRoles.description} eventKey={systemRoles.description} key={systemRoles.id}  >{systemRoles.description}</Dropdown.Item>
