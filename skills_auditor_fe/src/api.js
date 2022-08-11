@@ -36,3 +36,7 @@ export const fetchAllCategories = () => {
 export const fetchCategoryId = (description) => {
     return Axios.get(`${BaseURL}category/desc/${description}`)
 }
+
+export const fetchAssignedStaff = (managerId) => {
+    return Axios.get(`${BaseURL}staff/assigned/${managerId}`)
+}
