@@ -20,7 +20,7 @@ export const updatePersonalDetails = (staff) => {
 
 export const checkUserCredentials = (userCredentials) => {
     return Axios.get(`${BaseURL}`, {params: {details: userCredentials}})
-
+}
 export const addCategory = (category) => {
     return Axios.post(`${BaseURL}category/`, category)
 }
