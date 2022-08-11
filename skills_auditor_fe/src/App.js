@@ -16,9 +16,12 @@ import {
   Routes,
   Route
 } from "react-router-dom";
-import Navbar from './components/Navbar'
+import Navbar from './components/Navbar';
+
 
 function App() {
+
+
 
   return (
     <div>
@@ -26,23 +29,19 @@ function App() {
     <div className="container">
     <Router>
        <Routes>
-        <Route  exact path='/home' element={<Home/>}/>
-            <Route exact path='/manager/view_edit_staff_skills' element={<ViewEditStaffSkills/>} />
-            <Route exact path='/manager/add_category' element={<AddCategories/>} />
-            <Route exact path='/manager/add_skill' element={<AddSkill/>} />
-            <Route exact path='/manager/add_staff' element={<AddStaff/>} />
-            <Route exact path='/manager/view_edit_categories' element={<ViewEditCategories/>} />
-            <Route exact path='/manager/view_edit_skills' element={<ViewEditSkills/>} />
-            <Route exact path='/manager/view_edit_staff' element={<ViewEditStaff/>} />
-
-
-     <Route exact path="/" element={<Home/>} />
-     <Route exact path='/staff/view_edit_skill' element={<StaffViewEditSkill/>} />
-     <Route exact path='/staff/add_skill' element={<StaffAddSkill/>} />
-     <Route exact path='/staff/my_details' element={<StaffDetails/>} />
-
-         </Routes>
-       </Router>
+        <Route exact path='/' element={<Home/>}/>
+        <Route exact path='/manager/view_edit_staff_skills' element={<ViewEditStaffSkills/>} />
+        <Route exact path='/manager/add_category' element={<AddCategories/>} />
+        <Route exact path='/manager/add_skill' element={<AddSkill/>} />
+        <Route exact path='/manager/add_staff' element={<AddStaff/>} />
+        <Route exact path='/manager/view_edit_categories' element={<ViewEditCategories/>} />
+        <Route exact path='/manager/view_edit_skills' element={<ViewEditSkills/>} />
+        <Route exact path='/manager/view_edit_staff' element={<ViewEditStaff/>} />
+        <Route exact path='/staff/view_edit_skill' element={<StaffViewEditSkill/>} />
+        <Route exact path='/staff/add_skill' element={<StaffAddSkill/>} />
+        <Route exact path='/staff/my_details' element={<StaffDetails/>} />
+      </Routes>
+    </Router>
     </div>
   </div>
   );

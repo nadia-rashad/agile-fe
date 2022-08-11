@@ -2,8 +2,7 @@ import '../styles/styles.css';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import * as api from '../../api.js';
-import { useState } from "react";
-import { useEffect } from 'react';
+import { useState, useEffect } from "react";
 import toast, { Toaster } from 'react-hot-toast';
 
 function StaffDetails() {
@@ -16,6 +15,7 @@ function StaffDetails() {
     const [jobRoleId, setJobRoleId] = useState(0);
     const [title, setTitle] = useState('');
     const [id, setId] = useState(0);    
+    const [userData, setUserData] = useState([]);
     
     const onInputFirstName = ({target:{value}}) => {
         setFirstName(value)};
@@ -23,13 +23,39 @@ function StaffDetails() {
     const onInputEmail = ({target:{value}}) => setEmail(value);
     const onInputPassword = ({target:{value}}) => setPassword(value);
     const onInputTitle =  ({target:{value}}) => setTitle(value);
-
+   
     const notify = () => toast('Updated user details saved');
+
+
+    useEffect(()=> {
+      const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+
+      if (loggedInUser) {
+        setUserData(loggedInUser);
+       }
+  
+      setFirstName(userData.firstName);
+      setSurname(userData.surname);
+      setEmail(userData.email);
+      setPassword(userData.password);
+      setJobRoleId(userData.job_role_id);
+      setTitle(userData.title);
+      setId(userData.id);
+
+       async function fetchJobName () { 
+        await api.fetchJobRoleById(jobRoleId).then((res) => {
+        setJobRole(res.data[0].description);
+     }).catch((err) => console.log(err));
+    }
+    fetchJobName();
+  }, [jobRoleId, userData.firstName, userData.surname,userData.email,userData.password, userData.job_role_id, userData.title, userData.id  ])
+
+
 
     const onFormSubmit = async (e) => {
       e.preventDefault()
 
-      const userDetails = {
+      const updatedDetails = {
         id: id,
         firstName: firstName,
         surname: surname,
@@ -38,32 +64,9 @@ function StaffDetails() {
         job_role_id: jobRoleId,
         password: password
       }
-     await api.updatePersonalDetails(userDetails);
+     await api.updatePersonalDetails(updatedDetails);
      notify();
     }
-
-
-    useEffect(()=> {
-        async function fetchData() { await api.fetchCurrentStaff(1).then(    (res) => {
-            setFirstName(res.data[0].firstName);
-            setSurname(res.data[0].surname);
-            setEmail(res.data[0].email);
-            setPassword(res.data[0].password);
-            setJobRoleId(res.data[0].job_role_id);
-            setTitle(res.data[0].title);
-            setId(res.data[0].id);
-            }).catch((err) =>toast(err.message));
-        }
-
-        async function fetchJobName () { 
-            await api.fetchJobRoleById(jobRoleId).then((res) => {
-            setJobRole(res.data[0].description);
-         }).catch((err) => console.log(err));
-        }
-        fetchData();
-        fetchJobName();
-    }, [jobRoleId])
-
 
 return (
 <div  className="container">
@@ -88,20 +91,20 @@ return (
         <Form.Label >Job Role</Form.Label>
         <Form.Control type="text" value={jobRole} disabled/>
     </Form.Group>
-
-     
      <br></br>
       <Button variant="primary" type="submit" >
         Save
       </Button>
       <Toaster toastOptions={{
-        className: '',
-        style: {
-          border: '2px solid #713200',
-          padding: '16px',
-          color: '#713200',
-        },
-      }}/>
+
+    className: '',
+    style: {
+      border: '2px solid green',
+      padding: '16px',
+      color: '#713200',
+    },
+  }}/>
+      
     </Form>
 </div>
     )
