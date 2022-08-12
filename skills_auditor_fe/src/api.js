@@ -40,3 +40,7 @@ export const fetchCategoryId = (description) => {
 export const fetchAssignedStaff = (managerId) => {
     return Axios.get(`${BaseURL}staff/assigned/${managerId}`)
 }
+
+export const fetchAllJobRoles = () => {
+    return Axios.get(`${BaseURL}job_role`)
+}

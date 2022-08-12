@@ -10,12 +10,13 @@ import DropdownButton from 'react-bootstrap/DropdownButton';
 
 function ViewEditStaff() {
    
-        const [jobRole, setJobRole] = useState('');
+        const [jobRole, setJobRole] = useState({});
+        const [allJobRoles, setAllJobRoles] = useState([])
         const [firstName, setFirstName] = useState('');
         const [surname, setSurname] = useState('');
         const [email, setEmail] = useState('');
         const [password, setPassword] = useState('');
-        const [jobRoleId, setJobRoleId] = useState(0);
+        const [jobRoleId, setJobRoleId] = useState({});
         const [title, setTitle] = useState('');
         const [id, setId] = useState(0);    
         const [assignedStaff, setAssignedStaff] = useState([]);
@@ -29,26 +30,7 @@ function ViewEditStaff() {
         const onInputEmail = ({target:{value}}) => setEmail(value);
         const onInputPassword = ({target:{value}}) => setPassword(value);
         const onInputTitle =  ({target:{value}}) => setTitle(value);
-    
-        const notify = () => toast('Updated user details saved');
-    
-        const onFormSubmit = async (e) => {
-          e.preventDefault()
-    
-          const userDetails = {
-            id: id,
-            firstName: firstName,
-            surname: surname,
-            title: title,
-            email: email,
-            job_role_id: jobRoleId,
-            password: password
-          }
-         await api.updatePersonalDetails(userDetails);
-         notify();
-        }
-    
-    
+       
         useEffect(()=> {
 
             const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
@@ -57,69 +39,111 @@ function ViewEditStaff() {
              }
 
             async function fetchSelectedStaffData() {
-                // get all staff who have a manager id of the manager that's logged in
                 await api.fetchAssignedStaff(loggedInUser.id).then((res) => {
-                   console.log("all users" ,res.data)
                     setAssignedStaff(res.data);
+                }).catch((err) => {
+                   toast(err.message)
+                })
+            }
+
+            async function fetchAllJobRoles() {
+                await api.fetchAllJobRoles().then((res) => {
+                    setAllJobRoles(res.data);
                 }).catch((err) => {
                     console.log(err);
                 })
             }
-
-// update with selected users details 
-            async function fetchData() { await api.fetchCurrentStaff(1).then(    (res) => {
+    
                 setFirstName(selectedStaff.firstName);
                 setSurname(selectedStaff.surname);
                 setEmail(selectedStaff.email);
                 setPassword(selectedStaff.password);
                 setJobRoleId(selectedStaff.job_role_id);
                 setTitle(selectedStaff.title);
-                setId(selectedStaff.id);
-                }).catch((err) =>toast(err.message));
-            }
+
+                
     
-            async function fetchJobName () { 
-            //     await api.fetchJobRoleById(1).then((res) => {
-            //     setJobRole(res.data[0].description);
-            //  }).catch((err) => console.log(err));
+            async function fetchJobDetails () { 
+                await api.fetchJobRoleById(selectedStaff.job_role_id).then((res) => {
+                setJobRole(res.data[0]);
+             }).catch((err) => console.log(err));
             }
-            fetchData();
-            fetchJobName();
+
+            fetchAllJobRoles();
+            fetchJobDetails();
             fetchSelectedStaffData();
         }, [jobRoleId, selectedStaff.email, selectedStaff.firstName, selectedStaff.id, selectedStaff.job_role_id, selectedStaff.password, selectedStaff.surname, selectedStaff.title])
 
 
-        const handleSelect= async (staffName)=>{
+        const handleSelectedStaff= async (staffName)=>{
             setSelectedUsername(staffName);
-          }
+        }
+        
+        const handleSelectJobRole = async (jobName) => {
+            const jobDetails = allJobRoles.filter(job => job.description === jobName)
 
-          const handleOnClick = (event) => {
+            setJobRole(jobDetails[0]);
+        }
 
+        const handleOnClickStaff = (event) => {
           const staffId = Number(event.target.id)
-
-          console.log("id", staffId)
 
            const staffDetails = assignedStaff.filter(staff => staff.id === staffId)
            setSelectedStaff(staffDetails[0]);
+        }
 
-          }
+        const handleOnClickJobRole = (event) => {
+            const selectedJobRoleID = Number(event.target.id);
+       
+            const jobDetails = allJobRoles.filter(job => job.id === selectedJobRoleID)
 
-          console.log("selected staff", selectedStaff)
-    
+            setJobRole(jobDetails);
+        }
+
+        const onFormSubmit = async (e) => {
+            e.preventDefault()
+      
+            const userDetails = {
+              id: selectedStaff.id,
+              firstName:firstName,
+              surname: surname,
+              title: title,
+              email: email,
+              job_role_id: jobRole.id,
+              password: password,
+              system_role_id: selectedStaff.system_role_id
+            }
+
+            try {
+                await api.updatePersonalDetails(userDetails).then((res) => {
+                    if(Object.keys(res.data).length === 0) {
+                        toast("Error updating details")
+                    }
+                    else {
+                        toast("Successfully updated")
+                    }
+                })
+            } catch(err) {
+                toast("Unable to update: ", err.message)
+            }
+        }
     
     return (
     <div  className="container">
      <Form onSubmit={onFormSubmit}>
-     <Dropdown>
-             <DropdownButton title={!selectedUsername ? "Staff" : selectedUsername} onSelect={handleSelect} >
 
-             {!assignedStaff? 'No staff to display':  assignedStaff.map((staff, index) => {
-                     return <Dropdown.Item key={staff.id} id={staff.id} eventKey={`${staff.firstName} ${staff.surname}`} onClick={handleOnClick}>
+     <Form.Label >Selected staff member</Form.Label>
+     <Dropdown>
+             <DropdownButton title={!selectedUsername ? "Staff list" : selectedUsername} onSelect={handleSelectedStaff} className="dropdown-padding">
+
+             {!assignedStaff? 'No staff to display':  assignedStaff.map((staff) => {
+                     return <Dropdown.Item key={staff.id} id={staff.id} eventKey={`${staff.firstName} ${staff.surname}`} onClick={handleOnClickStaff}>
                         {staff.firstName} {staff.surname} 
                         </Dropdown.Item>
                     }) }
              </DropdownButton>
              </Dropdown> 
+         
         <Form.Group className="mb-3">
         <Form.Label >Title</Form.Label>
             <Form.Control type="text" onChange={onInputTitle} value={title} />
@@ -138,11 +162,20 @@ function ViewEditStaff() {
     
           <Form.Group className="mb-3">
             <Form.Label >Job Role</Form.Label>
-            <Form.Control type="text" value={jobRole} disabled/>
+
+            <Dropdown>
+             <DropdownButton title={!jobRole ? "Job Role" : jobRole.description} onSelect={handleSelectJobRole} className="dropdown-padding">
+
+             {!allJobRoles? 'No jobs to display':  allJobRoles.map((job) => {
+                     return <Dropdown.Item key={job.id} id={job.id} eventKey={job.description} onClick={handleOnClickJobRole}>
+                        {job.description} 
+                        </Dropdown.Item>
+                    }) }
+             </DropdownButton>
+             </Dropdown> 
         </Form.Group>
-    
-         
-         <br></br>
+    <br></br>
+
           <Button variant="primary" type="submit" >
             Save
           </Button>
