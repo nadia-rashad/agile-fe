@@ -58,3 +58,35 @@ export const fetchSkillTableData = (skillId) => {
     console.log(skillId);
     return Axios.get(`${BaseURL}staff_skill/id/${skillId}`)
 }
+
+
+
+
+
+export const fetchJobRoles = () => {
+    return Axios.get(`${BaseURL}job_role/`) 
+}   
+
+export const checkUserCredentials = (userCredentials) => {
+    return Axios.get(`${BaseURL}`, {params: {details: userCredentials}})
+}
+
+export const addStaff = (staff) => {
+    return Axios.post(`${BaseURL}staff/`, staff)
+}
+
+export const fetchAllJobRoles = () => {
+    return Axios.get(`${BaseURL}job_role`)
+}
+
+export const fetchJobRoleId = (description) => {
+    return Axios.get(`${BaseURL}job_role/desc/${description}`)
+}
+
+export const fetchAllSystemRoles = () => {
+    return Axios.get(`${BaseURL}system_role`)
+}
+
+export const fetchSystemRoleId = (description) => {
+    return Axios.get(`${BaseURL}system_role/desc/${description}`)
+}

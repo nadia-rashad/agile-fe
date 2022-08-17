@@ -12,8 +12,31 @@ import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 
 
+async function fetchAllSkills() {
+  const data = await api.fetchAllSkills()
+
+return data;
+}
+
+async function fetchAssignedSkills(currentUserId) {
+  
+   const data = await api.fetchAssignedSkills(currentUserId);
+    return data;
+}
+
+async function getTableData (assignedSkills) {
+    const array = []
+    await Promise.all(assignedSkills.map(async (skill) => {
+      const contents = await api.fetchSkillTableData(skill.id);
+      array.push(contents.data)
+    }));
+
+    return array;
+  }
+
 function StaffAddSkill(){
-    const currentUserId = 1; // this will need to change when log in feature is implemented
+
+    const [userData, setUserData] = useState([]);
 
     const [assignedSkills, setAssignedSkills] = useState([]);
     const [allSkills, setAllSkills] = useState([]); // comes from api call - this is all skills in the db
@@ -22,57 +45,49 @@ function StaffAddSkill(){
     const [selectedSkill, setSelectedSkill] = useState(''); //what's been selected in the dropdown
     const [selectedSkillId, setSkillId] = useState(0); // id of the skill selected
     const [selectedStrength, setStrength] = useState('');
-    const [assignedSkillsNames, setAssignedSkillsNames] = useState([]); //all assigned skills to current user
-    const [assignedSkillsCategoryNames, setAssignedSkillsCategoryNames] = useState([]); 
     const [skills, setSkills] = useState([]); // skill array of assigned skills
-
-    console.log("skills", skills);
-
-    useEffect( () => {
-        
-        async function fetchAllSkills() {
-            await api.fetchAllSkills().then((res) => {
-                console.log("fetch all skills ", res.data)
-                setAllSkills(res.data);
-            })
-        }
-        fetchAllSkills();
-
-        async function fetchAssignedSkills() {
-            console.log("fetching skills")
-            await api.fetchAssignedSkills(currentUserId).then((res) => {
-
-                console.log("all assigned skills", res.data)
-                setAssignedSkills(res.data);
-            })
-        }
-        fetchAssignedSkills()
-
-        async function getTableData () {
-
-            const array = []
+   
     
-            assignedSkills.map(async (skill) => {
-                await api.fetchSkillTableData(skill.id).then((res) => {
-                   array.push(res.data)
-                
-                })
-            })
-            setSkills(array)
+    useEffect(  () => {
+        const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+
+        if (loggedInUser) {
+             setUserData(loggedInUser);
         }
 
+       
+ 
+        fetchAllSkills().then((res) =>{
+        setAllSkills(res.data)
+        });
 
-        console.log("tabledata:", getTableData());
+        fetchAssignedSkills(userData.id).then((res) => {
+            setAssignedSkills(res.data)
+        });
+   
         setStrengths(SkillStrength);
-    }, [
-        //assignedSkills 
-    ])
 
-    
+        getTableData(assignedSkills).then((res) => {
+            setSkills(res);
+          
+           })
+    }, [])
 
-    // getTableData();
+
+    //another use effect for assigned skills
 
 
+    useEffect(()=> {
+        getTableData(assignedSkills).then((res) => {
+            setSkills(res);
+           })
+    }, [assignedSkills])
+
+    useEffect(()=> {
+        fetchAssignedSkills(userData.id).then((res) => {
+            setAssignedSkills(res.data)
+        });
+    }, [])
 
     const handleSelectSkill = async (s) => {
         setSelectedSkill(s);
@@ -87,49 +102,31 @@ function StaffAddSkill(){
         setStrength(s);
     }
 
-
     const onFormSubmit = async (s) => {
         s.preventDefault()
 
         const newSkillToAssign = {
             skill_id: selectedSkillId,
-            staff_id: currentUserId,
+            staff_id: userData.id,
             expiry_date: expiryDate,
             strength: selectedStrength
         }
-
-        console.log(newSkillToAssign);
 
         await api.assignSkill(newSkillToAssign).then((res) => {
             if(res.status === 201 ){
                 toast("Skill assigned successfully");
                 setSelectedSkill('');
+
             }
             else {
                 toast(res.data.message);
             }
+
+            // fetchAssignedSkills(userData.id).then((res) => {
+            //     setAssignedSkills(res.data)
+            // });
         })
     }
-
-    // const getSkillFromId = async (id) => {
-    //     await api.fetchSkillById(id).then((res) => {
-    //         return (res.data);
-    //     });
-
-    // }      
-    //////
-    //////
-    /////
-    // IS THIS an effective way to get the information???
-
-    /*
-    userAssignedSkills = {
-        skillName : "",
-        skillCategory : "",
-        skillStrength : "",
-        expiryData ; ""
-    }
-    */
     
     return (
         <div  className="container">
@@ -156,7 +153,7 @@ function StaffAddSkill(){
 
             <p>Expiry Date</p>
             <DatePicker selected={expiryDate} onChange={(date) => setExpiryDate(date)} dateFormat="dd/MM/yyyy"/>
-            <Button variant="primary" type="submit" disabled={!selectedSkill}> Add Skill </Button>
+            <Button variant="primary" type="submit" disabled={!selectedSkill} > Add Skill </Button>
             <Toaster toastOptions={{
                 className: '',
                 style: {
@@ -176,8 +173,8 @@ function StaffAddSkill(){
                     </tr>
                 </thead>
                 <tbody>
-                    {!assignedSkills? 'No Assigned Skills to display': skills.map((skill) => {
-                        return <tr>
+                    {!skills? 'No Assigned Skills to display': skills.map((skill, index) => {
+                        return <tr key={index}>
                             <td>{skill.skillName}</td>
                             <td>{skill.skillCategory}</td>
                             <td>{skill.skillStrength}</td>
