@@ -47,7 +47,7 @@ function App() {
       return (
         <div>
 
-        <Navbar />
+        <Navbar userDetails={userDetails} />
       <div className="container">
       <Router>
          <Routes>
