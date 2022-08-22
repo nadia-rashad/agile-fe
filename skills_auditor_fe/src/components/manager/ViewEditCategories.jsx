@@ -12,10 +12,10 @@ function ViewEditCategories() {
     const [categories, setCategories] = useState([]);
     const [selectedCategoryName, setSelectedCategoryName] = useState('');
 
-    const [selectedCategory, setSelectedCategory] = useState({});
+    const [selectedCategory, setSelectedCategory] = useState({id: '', description: ''});
 
-    const onInputDescription = ({target:{value}}) => {
-        setDescription(value)
+    const onInputDescription = ({target:{categoryDescription}}) => {
+        setDescription(categoryDescription)
     };
 
     useEffect(()=> {

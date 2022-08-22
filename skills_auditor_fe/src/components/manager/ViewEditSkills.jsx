@@ -10,12 +10,12 @@ import toast, { Toaster } from 'react-hot-toast';
 function ViewEditSkills() {
     const [description, setDescription] = useState('');
     const [skills, setSkills] = useState([]);
-    const [category, setCategory] = useState({});
+    const [category, setCategory] = useState({id:'', description:''});
     const [categories, setCategories] = useState([]);
     const [categoryId, setCategoryId] = useState({});
 
     const [selectedSkillName, setSelectedSkillName] = useState('');
-    const [selectedSkill, setSelectedSkill] = useState({});
+    const [selectedSkill, setSelectedSkill] = useState({id:'', description:'', categoryId:''});
     
 
     const onInputDescription = ({target:{value}}) => {
@@ -69,14 +69,18 @@ function ViewEditSkills() {
 
          const skillDetails = skills.filter(skill => skill.id === skillId)
          setSelectedSkill(skillDetails[0]);
-      }
+    }
 
     const handleOnClickCategory = (e) => {
         const categoryId = Number(e.target.id)
 
          const categoryDetails = categories.filter(cat => cat.id === categoryId)
          setCategory(categoryDetails);
-      }
+    }
+
+    const refreshPage = () =>{
+        window.location.reload(false);
+    }
 
     const onFormSubmit = async (event) => {
         event.preventDefault()
@@ -124,7 +128,7 @@ function ViewEditSkills() {
         <Form.Label >Skill Name</Form.Label>
         <Form.Control type="text" onChange={onInputDescription} value={description} />
     </Form.Group>
-    
+    <br></br> 
     <Form.Group> 
         <Form.Label >Skill Category</Form.Label>
         <Dropdown>
@@ -141,7 +145,7 @@ function ViewEditSkills() {
     </Form.Group>
 
     <br></br> 
-    <Button variant="primary" type="submit" disabled={!description}>
+    <Button variant="primary" type="submit" disabled={!description} onClick={refreshPage}>
     Save
     </Button>
     <Toaster toastOptions={{
