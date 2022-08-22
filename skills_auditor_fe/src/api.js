@@ -14,6 +14,10 @@ export const fetchJobRoleById = (id) => {
     return Axios.get(`${BaseURL}job_role/id/${id}`);
 }
 
+export const fetchJobRoles = () => {
+    return Axios.get(`${BaseURL}job_role/`) 
+}   
+
 export const updatePersonalDetails = (staff) => {
     return Axios.put(`${BaseURL}staff/`, staff)
 }
@@ -39,8 +43,23 @@ export const fetchCategoryId = (description) => {
 
 export const fetchAssignedStaff = (managerId) => {
     return Axios.get(`${BaseURL}staff/assignedStaff/${managerId}`)
+
+export const addStaff = (staff) => {
+    return Axios.post(`${BaseURL}staff/`, staff)
 }
 
 export const fetchAllJobRoles = () => {
     return Axios.get(`${BaseURL}job_role`)
+}
+
+export const fetchJobRoleId = (description) => {
+    return Axios.get(`${BaseURL}job_role/desc/${description}`)
+}
+
+export const fetchAllSystemRoles = () => {
+    return Axios.get(`${BaseURL}system_role`)
+}
+
+export const fetchSystemRoleId = (description) => {
+    return Axios.get(`${BaseURL}system_role/desc/${description}`)
 }

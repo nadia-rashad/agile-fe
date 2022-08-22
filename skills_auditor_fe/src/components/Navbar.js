@@ -8,24 +8,26 @@ export default function Navbar() {
     const [password, setPassword] = useState('');
     const [loggedInUser, setLoggedInUser] = useState({});
 
+    const getToken = () => {
+      const tokenString = localStorage.getItem('token');
+      const userToken = JSON.parse(tokenString);
+      return userToken?.token
+    };
+
     const handleLogout = () => {
       setLoggedInUser({});
       setEmail("");
       setPassword("");
-      setLoggedInUser({})
-      localStorage.setItem('loggedInUser', {});
+      localStorage.setItem('token', "");
       localStorage.clear();
-      setLoggedIn(false);
     };
    
      useEffect(()=> {
-       const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
-
       if (loggedInUser) {
         setLoggedInUser(loggedInUser);
         setLoggedIn(true);
        }
-     }, [])
+     })
 
 
     return (
