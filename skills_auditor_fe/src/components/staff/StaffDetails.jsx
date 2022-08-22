@@ -5,7 +5,7 @@ import * as api from '../../api.js';
 import { useState, useEffect } from "react";
 import toast, { Toaster } from 'react-hot-toast';
 
-function StaffDetails() {
+function StaffDetails(props) {
 
     const [jobRole, setJobRole] = useState('');
     const [firstName, setFirstName] = useState('');
@@ -28,12 +28,11 @@ function StaffDetails() {
 
 
     useEffect(()=> {
-      const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
 
-      if (loggedInUser) {
-        setUserData(loggedInUser);
-       }
-  
+      const userDetails = props.userDetails.details
+     
+      setUserData(userDetails);
+       
       setFirstName(userData.firstName);
       setSurname(userData.surname);
       setEmail(userData.email);
@@ -48,9 +47,8 @@ function StaffDetails() {
      }).catch((err) => console.log(err));
     }
     fetchJobName();
-  }, [jobRoleId, userData.firstName, userData.surname,userData.email,userData.password, userData.job_role_id, userData.title, userData.id  ])
-
-
+  }, [jobRoleId, userData.firstName, userData.surname,userData.email,userData.password, userData.job_role_id, userData.title, userData.id, props.userDetails  ])
+ 
 
     const onFormSubmit = async (e) => {
       e.preventDefault()
