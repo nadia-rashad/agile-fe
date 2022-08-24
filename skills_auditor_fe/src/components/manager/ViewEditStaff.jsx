@@ -8,7 +8,8 @@ import toast, { Toaster } from 'react-hot-toast';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 
-function ViewEditStaff() {
+function ViewEditStaff(props) {
+    console.log(props?.userDetails.details)
    
         const [jobRole, setJobRole] = useState({});
         const [allJobRoles, setAllJobRoles] = useState([])
@@ -33,7 +34,7 @@ function ViewEditStaff() {
        
         useEffect(()=> {
 
-            const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+            const loggedInUser = props.userDetails.details;
             if (loggedInUser) {
               setUserData(loggedInUser);
              }
@@ -72,7 +73,7 @@ function ViewEditStaff() {
             fetchAllJobRoles();
             fetchJobDetails();
             fetchSelectedStaffData();
-        }, [jobRoleId, selectedStaff.email, selectedStaff.firstName, selectedStaff.id, selectedStaff.job_role_id, selectedStaff.password, selectedStaff.surname, selectedStaff.title])
+        }, [jobRoleId, selectedStaff.email, selectedStaff.firstName, selectedStaff.id, selectedStaff.job_role_id, selectedStaff.password, selectedStaff.surname, selectedStaff.title, props.userDetails.details])
 
 
         const handleSelectedStaff= async (staffName)=>{
