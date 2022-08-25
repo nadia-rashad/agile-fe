@@ -54,14 +54,9 @@ export const assignSkill = (staffSkill) => {
     return Axios.post(`${BaseURL}staff_skill`, staffSkill)
 }
 
-export const fetchSkillTableData = (skillId) => {
-    console.log(skillId);
-    return Axios.get(`${BaseURL}staff_skill/id/${skillId}`)
+export const fetchSkillsTableData = (assignedSkills) => {
+    return Axios.post(`${BaseURL}staff_skill/table_data`, assignedSkills)
 }
-
-
-
-
 
 export const fetchJobRoles = () => {
     return Axios.get(`${BaseURL}job_role/`) 
