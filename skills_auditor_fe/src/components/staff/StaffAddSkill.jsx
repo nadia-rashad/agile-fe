@@ -12,7 +12,6 @@ import { SkillStrength } from '../utilities/SkillStrength';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 
-
 function StaffAddSkill(){
     const loggedInUser = JSON.parse(localStorage.getItem('user'));
 
@@ -74,7 +73,6 @@ function StaffAddSkill(){
         setStrength(s);
     }
 
-
     const onFormSubmit = async (s) => {
         s.preventDefault()
 
@@ -89,6 +87,7 @@ function StaffAddSkill(){
             if(res.status === 201 ){
                 toast("Skill assigned successfully, \n Refresh page to see the new Skill");
                 setSelectedSkill('');
+
             }
             else {
                 toast(res.data.message);
@@ -121,7 +120,7 @@ function StaffAddSkill(){
             <br/>
             <Form.Label>Expiry Date</Form.Label>
             <DatePicker selected={expiryDate} onChange={(date) => setExpiryDate(date)} dateFormat="dd/MM/yyyy"/>
-            <Button variant="primary" type="submit" disabled={!selectedSkill}> Add Skill </Button>
+            <Button variant="primary" type="submit" disabled={!selectedSkill} > Add Skill </Button>
             <Toaster toastOptions={{
                 className: '',
                 style: {
