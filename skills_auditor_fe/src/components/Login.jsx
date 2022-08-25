@@ -50,12 +50,14 @@ function Login({setToken, setUser}) {
     return(
         <div className='container'>
 
+          <h1 aria-label="page header">Skills Auditor</h1>
+
           {!authenticated ?  
 <>
-          <h2>Login</h2>
+          <h2 aria-label='login header'>Login</h2>
 
           
-     <Form onSubmit={onFormSubmit}>
+     <Form onSubmit={onFormSubmit} aria-label="login form">
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>Email address</Form.Label>
         <Form.Control aria-label='Text feild to enter email' type="email" onChange={onInputEmail}/>
@@ -67,7 +69,7 @@ function Login({setToken, setUser}) {
         <Form.Control aria-label='Text feild to enter password' type="password" onChange={onInputPassword}/>
       </Form.Group>
      
-      <Button aria-label='Button to login' variant="primary" type="submit">
+      <Button aria-label='Button to login' variant="primary" type="submit" disabled={!email || !password}>
         Submit
       </Button>
       <Toaster toastOptions={{

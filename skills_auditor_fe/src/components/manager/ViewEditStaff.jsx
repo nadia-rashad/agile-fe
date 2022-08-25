@@ -9,7 +9,6 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 
 function ViewEditStaff(props) {
-    console.log(props?.userDetails.details)
    
         const [jobRole, setJobRole] = useState({});
         const [allJobRoles, setAllJobRoles] = useState([])
@@ -18,8 +17,7 @@ function ViewEditStaff(props) {
         const [email, setEmail] = useState('');
         const [password, setPassword] = useState('');
         const [jobRoleId, setJobRoleId] = useState({});
-        const [title, setTitle] = useState('');
-        const [id, setId] = useState(0);    
+        const [title, setTitle] = useState('');   
         const [assignedStaff, setAssignedStaff] = useState([]);
         const [userData, setUserData] = useState([]);
         const [selectedStaff, setSelectedStaff] = useState({});

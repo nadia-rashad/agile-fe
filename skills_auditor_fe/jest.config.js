@@ -1,7 +1,8 @@
 const config = {
     verbose: true,
     "resetMocks": false,
-    "setupFiles": ["jest-localstorage-mock"]
+    "setupFiles": ["jest-localstorage-mock"],
+    "testEnvironment": "jest-environment-jsdom"
   };
   
   module.exports = config;
