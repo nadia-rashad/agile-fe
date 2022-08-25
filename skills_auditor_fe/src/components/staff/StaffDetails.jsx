@@ -71,26 +71,26 @@ return (
  <Form onSubmit={onFormSubmit}>
     <Form.Group className="mb-3">
     <Form.Label >Title</Form.Label>
-        <Form.Control type="text" onChange={onInputTitle} value={title} />
+        <Form.Control aria-label='Text field to edit your title' type="text" onChange={onInputTitle} value={title} />
         <Form.Label >First name</Form.Label>
-        <Form.Control type="text" onChange={onInputFirstName} value={firstName} />
+        <Form.Control aria-label='Text field to edit your first name' type="text" onChange={onInputFirstName} value={firstName} />
         <Form.Label>Surname</Form.Label>
-        <Form.Control type="text" onChange={onInputSurname} value={surname} />
+        <Form.Control aria-label='Text field to edit your surname' type="text" onChange={onInputSurname} value={surname} />
     </Form.Group>
 
      <Form.Group className="mb-3" >
         <Form.Label>Email address</Form.Label>
-        <Form.Control type="email"  onChange={onInputEmail} value={email}/>
+        <Form.Control aria-label='Text field to edit your email' type="email"  onChange={onInputEmail} value={email}/>
         <Form.Label>Password</Form.Label>
-        <Form.Control type="password" onChange={onInputPassword} value={password} />
+        <Form.Control aria-label='Text field to edit your password' type="password" onChange={onInputPassword} value={password} />
       </Form.Group>
 
       <Form.Group className="mb-3">
         <Form.Label >Job Role</Form.Label>
-        <Form.Control type="text" value={jobRole} disabled/>
+        <Form.Control aria-label='Text field to view your job role, this cannot be edited' type="text" value={jobRole} disabled/>
     </Form.Group>
      <br></br>
-      <Button variant="primary" type="submit" >
+      <Button aria-label='Save your edited personal details' variant="primary" type="submit" >
         Save
       </Button>
       <Toaster toastOptions={{
