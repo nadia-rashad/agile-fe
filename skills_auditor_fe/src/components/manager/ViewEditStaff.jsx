@@ -134,7 +134,7 @@ function ViewEditStaff() {
 
      <Form.Label >Selected staff member</Form.Label>
      <Dropdown>
-             <DropdownButton title={!selectedUsername ? "Staff list" : selectedUsername} onSelect={handleSelectedStaff} className="dropdown-padding">
+             <DropdownButton aria-label='Dropdown menu to choose an employee to edit' title={!selectedUsername ? "Staff list" : selectedUsername} onSelect={handleSelectedStaff} className="dropdown-padding">
 
              {!assignedStaff? 'No staff to display':  assignedStaff.map((staff) => {
                      return <Dropdown.Item key={staff.id} id={staff.id} eventKey={`${staff.firstName} ${staff.surname}`} onClick={handleOnClickStaff}>
@@ -146,25 +146,25 @@ function ViewEditStaff() {
          
         <Form.Group className="mb-3">
         <Form.Label >Title</Form.Label>
-            <Form.Control type="text" onChange={onInputTitle} value={title} />
+            <Form.Control aria-label='Text field to edit the employees title' type="text" onChange={onInputTitle} value={title} />
             <Form.Label >First name</Form.Label>
-            <Form.Control type="text" onChange={onInputFirstName} value={firstName} />
+            <Form.Control aria-label='Text field to edit the employees first name' type="text" onChange={onInputFirstName} value={firstName} />
             <Form.Label>Surname</Form.Label>
-            <Form.Control type="text" onChange={onInputSurname} value={surname} />
+            <Form.Control aria-label='Text field to edit the employees surname' type="text" onChange={onInputSurname} value={surname} />
         </Form.Group>
     
          <Form.Group className="mb-3" >
             <Form.Label>Email address</Form.Label>
-            <Form.Control type="email"  onChange={onInputEmail} value={email}/>
+            <Form.Control aria-label='Text field to edit the employees email' type="email"  onChange={onInputEmail} value={email}/>
             <Form.Label>Password</Form.Label>
-            <Form.Control type="password" onChange={onInputPassword} value={password} />
+            <Form.Control aria-label='Text field to edit the employees password' type="password" onChange={onInputPassword} value={password} />
           </Form.Group>
     
           <Form.Group className="mb-3">
             <Form.Label >Job Role</Form.Label>
 
             <Dropdown>
-             <DropdownButton title={!jobRole ? "Job Role" : jobRole.description} onSelect={handleSelectJobRole} className="dropdown-padding">
+             <DropdownButton aria-label='Dropdown menu to change the employees job role' title={!jobRole ? "Job Role" : jobRole.description} onSelect={handleSelectJobRole} className="dropdown-padding">
 
              {!allJobRoles? 'No jobs to display':  allJobRoles.map((job) => {
                      return <Dropdown.Item key={job.id} id={job.id} eventKey={job.description} onClick={handleOnClickJobRole}>
@@ -176,7 +176,7 @@ function ViewEditStaff() {
         </Form.Group>
     <br></br>
 
-          <Button variant="primary" type="submit" >
+          <Button aria-label='Save the employees edited details' variant="primary" type="submit" >
             Save
           </Button>
           <Toaster toastOptions={{

@@ -58,16 +58,16 @@ function Login({setToken, setUser}) {
      <Form onSubmit={onFormSubmit}>
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>Email address</Form.Label>
-        <Form.Control type="email" placeholder="Enter email" onChange={onInputEmail}/>
+        <Form.Control aria-label='Text feild to enter email' type="email" onChange={onInputEmail}/>
 
       </Form.Group>
 
       <Form.Group className="mb-3" controlId="formBasicPassword">
         <Form.Label>Password</Form.Label>
-        <Form.Control type="password" placeholder="Password" onChange={onInputPassword} />
+        <Form.Control aria-label='Text feild to enter password' type="password" onChange={onInputPassword}/>
       </Form.Group>
      
-      <Button variant="primary" type="submit">
+      <Button aria-label='Button to login' variant="primary" type="submit">
         Submit
       </Button>
       <Toaster toastOptions={{

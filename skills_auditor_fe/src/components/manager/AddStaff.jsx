@@ -99,18 +99,18 @@ function AddStaff() {
             <Form onSubmit={onFormSubmit}>
                 <Form.Group className="mb-3">
                 <Form.Label >Title</Form.Label>
-                    <Form.Control type="text" onChange={onInputTitle} value={title} />
+                    <Form.Control aria-label='Text field to enter the employees title' type="text" onChange={onInputTitle} value={title} />
                     <Form.Label >First name</Form.Label>
-                    <Form.Control type="text" onChange={onInputFirstName} value={firstName} />
+                    <Form.Control aria-label='Text field to enter the employees first name' type="text" onChange={onInputFirstName} value={firstName} />
                     <Form.Label>Surname</Form.Label>
-                    <Form.Control type="text" onChange={onInputSurname} value={surname} />
+                    <Form.Control aria-label='Text field to enter the employees surname' type="text" onChange={onInputSurname} value={surname} />
                 </Form.Group>
 
                 <Form.Group className="mb-3" >
                     <Form.Label>Email address</Form.Label>
-                    <Form.Control type="email"  onChange={onInputEmail} value={email}/>
+                    <Form.Control aria-label='Text field to enter the employees email' type="email"  onChange={onInputEmail} value={email}/>
                     <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" onChange={onInputPassword} value={password} />
+                    <Form.Control aria-label='Text field to enter the employees password' type="password" onChange={onInputPassword} value={password} />
                 </Form.Group>
 
                 <Form.Group className="mb-3">
@@ -118,7 +118,7 @@ function AddStaff() {
 
                     <br></br>
                     <Dropdown>
-                    <DropdownButton title={selectedJobRole ? selectedJobRole : "Job Roles"} onSelect={convertSelectedJobRoleToId} >
+                    <DropdownButton aria-label='Dropdown menu to choose the employees job role' title={selectedJobRole ? selectedJobRole : "Job Roles"} onSelect={convertSelectedJobRoleToId} >
 
                     {!jobRoles? 'No job roles to display':  jobRoles.map((jobRoles) => {
                         return <Dropdown.Item value={jobRoles.description} eventKey={jobRoles.description} key={jobRoles.id}  >{jobRoles.description}</Dropdown.Item>
@@ -131,7 +131,7 @@ function AddStaff() {
                     <Form.Label >System Role</Form.Label> 
                     <br></br>
                     <Dropdown>
-                    <DropdownButton title={selectedSystemRole ? selectedSystemRole : "System Roles"} onSelect={convertSelectedSystemRoleToId} >
+                    <DropdownButton aria-label='Dropdown menu to choose the employees system role' title={selectedSystemRole ? selectedSystemRole : "System Roles"} onSelect={convertSelectedSystemRoleToId} >
 
                     {!systemRoles? 'No system roles to display':  systemRoles.map((systemRoles) => {
                         return <Dropdown.Item value={systemRoles.description} eventKey={systemRoles.description} key={systemRoles.id}  >{systemRoles.description}</Dropdown.Item>
@@ -143,7 +143,7 @@ function AddStaff() {
 
                 </Form.Group>
 
-                <Button variant="primary" type="submit" disabled={!title || !firstName || !surname || !email || !password || !selectedJobRole || !selectedSystemRole}>
+                <Button aria-label='Submit new employee' variant="primary" type="submit" disabled={!title || !firstName || !surname || !email || !password || !selectedJobRole || !selectedSystemRole}>
                     Add Staff Member
                 </Button>
                 <Toaster toastOptions={{
