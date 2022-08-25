@@ -14,7 +14,7 @@ import "react-datepicker/dist/react-datepicker.css";
 
 
 function StaffAddSkill(){
-    const currentUserId = 1; // this will need to change when log in feature is implemented
+    const loggedInUser = JSON.parse(localStorage.getItem('user'));
 
     const [assignedSkills, setAssignedSkills] = useState([]);
     const [allSkills, setAllSkills] = useState([]); // comes from api call - this is all skills in the db
@@ -34,8 +34,9 @@ function StaffAddSkill(){
         fetchAllSkills();
 
         async function fetchAssignedSkills() {
-            await api.fetchAssignedSkills(currentUserId).then((res) => {
+            await api.fetchAssignedSkills(loggedInUser).then((res) => {
                 setAssignedSkills(res.data);
+                console.log("assSkil:", res.data)
             })
         }
         fetchAssignedSkills();
@@ -79,7 +80,7 @@ function StaffAddSkill(){
 
         const newSkillToAssign = {
             skill_id: selectedSkillId,
-            staff_id: currentUserId,
+            staff_id: loggedInUser,
             expiry_date: expiryDate,
             strength: selectedStrength
         }

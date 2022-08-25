@@ -26,12 +26,8 @@ export const addNewSkill = (skill) => {
     return Axios.post(`${BaseURL}skill`, skill)
 }
 
-export const fetchAllCategories = () => {
-    return Axios.get(`${BaseURL}category`)
-}
-
-export const fetchCategoryId = (description) => {
-    return Axios.get(`${BaseURL}category/desc/${description}`)
+export const fetchAssignedStaff = (managerId) => {
+    return Axios.get(`${BaseURL}staff/assignedStaff/${managerId}`)
 }
 
 export const fetchAllSkills = () => {
@@ -64,6 +60,14 @@ export const fetchJobRoles = () => {
 
 export const checkUserCredentials = (userCredentials) => {
     return Axios.get(`${BaseURL}`, {params: {details: userCredentials}})
+}
+
+export const fetchAllCategories = () => {
+    return Axios.get(`${BaseURL}category`)
+}
+
+export const fetchCategoryId = (description) => {
+    return Axios.get(`${BaseURL}category/desc/${description}`)
 }
 
 export const addStaff = (staff) => {

@@ -1,42 +1,31 @@
 import './Navbar.css';
 import { useState, useEffect } from "react";
 
-export default function Navbar() {
+export default function Navbar(props) {
     const [isNavExpanded, setIsNavExpanded] = useState(false);
-    const [isLoggedIn, setLoggedIn] = useState(true);
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
     const [loggedInUser, setLoggedInUser] = useState({});
+    const MANAGER_SYSTEM_ROLE = 1; 
 
     const handleLogout = () => {
-      setLoggedInUser({});
-      setEmail("");
-      setPassword("");
-      setLoggedInUser({})
-      localStorage.setItem('loggedInUser', {});
       localStorage.clear();
-      setLoggedIn(false);
     };
    
-     useEffect(()=> {
-       const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+    useEffect(()=> {
+     setLoggedInUser(props.userDetails.details);
+      
+      }, [props.userDetails.details])
 
-      if (loggedInUser) {
-        setLoggedInUser(loggedInUser);
-        setLoggedIn(true);
-       }
-     }, [])
-
+ 
 
     return (
       <div>      
-        <nav className="navigation">
-        <a href="/" className="brand-name">
+        <nav aria-label='Page Header' className="navigation" >
+        <a aria-label='Link to homepage' href="/" className="brand-name">
           Skills Auditor
         </a>
 
               
-        <button className="hamburger" onClick={() => {
+        <button aria-label='Button to open navigation pane' className="hamburger" onClick={() => {
           setIsNavExpanded(!isNavExpanded);
         }}>
           <svg
@@ -74,55 +63,63 @@ export default function Navbar() {
         <div
          className={
             isNavExpanded ? "navigation-menu expanded" : "navigation-menu"}>
-               
-            <ul>
-            <li>
+
+          {loggedInUser?.system_role_id === MANAGER_SYSTEM_ROLE ?      
+          
+          <ul>
+             <li>
+              <a href="/home" aria-label='Link to homepage'>Home</a>
+            </li>
+          <li>
+            <a href="/manager/view_edit_staff_skills" aria-label='Link to view and edit skills assigned to employees'>View/ Edit staff skill</a>
+          </li>
+          <li>
+            <a href="/manager/add_category" aria-label='Link to add a new category'>Add category</a>
+          </li>
+          <li>
+            <a href="/manager/add_skill" aria-label='Link to add a new skill'>Add skill</a>
+          </li>
+          <li>
+              <a href='/manager/add_staff' aria-label='Link to add a new employee'>Add staff</a>
+          </li>
+          <li>
+              <a href='/manager/view_edit_categories' aria-label='Link to view and edit skill categories'>View/ Edit categories</a>
+          </li>
+          <li>
+              <a href='/manager/view_edit_skills' aria-label='Link to view and edit skill'>View/ Edit skills</a>
+          </li>
+          <li>
+              <a href='/manager/view_edit_staff' aria-label='Link to view and edit staff details'>View/ Edit staff</a>
+          </li>
+          <li>
+              <a aria-label='Click here to logout' onClick={handleLogout} href='/'>Log out</a>
+            </li>
+        
+          </ul>
+          
+          
+          :     
+          
+          <ul>
+             <li>
               <a href="/home">Home</a>
             </li>
-            <li>
-              <a href="/about">About</a>
-            </li>
-            <li>
-              <a href="/contact">Contact</a>
-            </li>
-          </ul> 
-          <ul>
-            <li>
-              <a href="/staff/my_details">Staff My details</a>
-            </li>
-            <li>
-              <a href="/staff/add_skill">Staff Add Skill</a>
-            </li>
-            <li>
-              <a href="/staff/view_edit_skill">Staff view edit skill</a>
-            </li>
-            <li>
-              <a href="/manager/view_edit_staff_skills">manager view edit staff skill</a>
-            </li>
-            <li>
-              <a href="/manager/add_category">Manager add category</a>
-            </li>
-            <li>
-              <a href="/manager/add_skill">Manager add skill</a>
-            </li>
-            <li>
-                <a href='/manager/add_staff'>Manager add staff</a>
-            </li>
-            <li>
-                <a href='/manager/view_edit_categories'>Manager view edit categories</a>
-            </li>
-            <li>
-                <a href='/manager/view_edit_skills'>Manager view edit skills</a>
-            </li>
-            <li>
-                <a href='/manager/view_edit_staff'>Manager view edit staff</a>
-            </li>
-            <li>
+          <li>
+            <a href="/staff/my_details">My details</a>
+          </li>
+          <li>
+            <a href="/staff/add_skill">Add Skill</a>
+          </li>
+          <li>
+            <a href="/staff/view_edit_skill">View/ Edit skills</a>
+          </li>
+          <li>
               <a onClick={handleLogout} href='/'>Log out</a>
             </li>
-      
           </ul>
-        
+          
+          }
+
         </div>
       </nav>
       </div>
