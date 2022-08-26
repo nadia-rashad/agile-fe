@@ -33,7 +33,7 @@ function ViewEditStaff() {
        
         useEffect(()=> {
 
-            const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+            const loggedInUser = JSON.parse(localStorage.getItem('user'));
             if (loggedInUser) {
               setUserData(loggedInUser);
              }

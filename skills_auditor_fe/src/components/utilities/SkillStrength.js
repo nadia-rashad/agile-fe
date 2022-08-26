@@ -1,0 +1,1 @@
+export const SkillStrength  = [ "Expert", "Intermediate", "Basic", "Beginner" ]
