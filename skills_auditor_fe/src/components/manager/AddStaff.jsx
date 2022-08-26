@@ -93,7 +93,7 @@ function AddStaff() {
         job_role_id: selectedJobRoleId,
         password: password,
         system_role_id: selectedSystemRoleId,
-        line_manager_id: selectedLineManagerId
+        manager_id: selectedLineManagerId
       }
 
         await api.addStaff(userToAdd).then((res) => {
