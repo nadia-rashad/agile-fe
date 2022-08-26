@@ -35,7 +35,6 @@ function StaffAddSkill(){
         async function fetchAssignedSkills() {
             await api.fetchAssignedSkills(loggedInUser).then((res) => {
                 setAssignedSkills(res.data);
-                console.log("assSkil:", res.data)
             })
         }
         fetchAssignedSkills();
@@ -73,6 +72,10 @@ function StaffAddSkill(){
         setStrength(s);
     }
 
+    const refreshPage = () => {
+        window.location.reload(false);
+    }
+
     const onFormSubmit = async (s) => {
         s.preventDefault()
 
@@ -85,9 +88,8 @@ function StaffAddSkill(){
 
         await api.assignSkill(newSkillToAssign).then((res) => {
             if(res.status === 201 ){
-                toast("Skill assigned successfully, \n Refresh page to see the new Skill");
+                toast("Skill assigned successfully");
                 setSelectedSkill('');
-
             }
             else {
                 toast(res.data.message);
@@ -120,7 +122,7 @@ function StaffAddSkill(){
             <br/>
             <Form.Label>Expiry Date</Form.Label>
             <DatePicker selected={expiryDate} onChange={(date) => setExpiryDate(date)} dateFormat="dd/MM/yyyy"/>
-            <Button variant="primary" type="submit" disabled={!selectedSkill} > Add Skill </Button>
+            <Button variant="primary" type="submit" disabled={!selectedSkill} onClick={refreshPage} > Add Skill </Button>
             <Toaster toastOptions={{
                 className: '',
                 style: {
