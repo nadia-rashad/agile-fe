@@ -38,9 +38,13 @@ function ViewEditCategories() {
     const handleOnClickCategory = (e) => {
         const categoryId = Number(e.target.id)
 
-         const categoryDetails = categories.filter(cat => cat.id === categoryId)
-         setSelectedCategory(categoryDetails[0]);
-      }
+            const categoryDetails = categories.filter(cat => cat.id === categoryId)
+            setSelectedCategory(categoryDetails[0]);
+    }
+
+    const refreshPage = () =>{
+        window.location.reload(false);
+    }
 
     const onFormSubmit = async (event) => {
         event.preventDefault()
@@ -84,7 +88,7 @@ function ViewEditCategories() {
             </Form.Group>
 
             <br></br>
-            <Button variant="primary" type="submit" disabled={!description}>
+            <Button variant="primary" type="submit" disabled={!description} onClick={refreshPage}>
                 Save
             </Button>
 
