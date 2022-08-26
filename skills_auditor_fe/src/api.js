@@ -61,6 +61,10 @@ export const updateCategoryDetails = (category) => {
     return Axios.put(`${BaseURL}category/`, category)
 }
 
+export const fetchAssignedStaff = (managerId) => {
+    return Axios.get(`${BaseURL}staff/assignedStaff/${managerId}`)
+}
+
 export const addStaff = (staff) => {
     return Axios.post(`${BaseURL}staff/`, staff)
 }
