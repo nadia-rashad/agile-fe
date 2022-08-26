@@ -4,10 +4,12 @@
 
 import Login from './Login';
 import React from 'react';
-import {render, screen, input} from '@testing-library/react';
+import {render, screen} from '@testing-library/react';
 import '@testing-library/jest-dom';
-import ReactTestUtils from 'react-dom/test-utils';
-import Button from 'react-bootstrap/Button';
+import {checkUserCredentials} from '../api'
+const axios = require('axios');
+
+jest.mock('axios');
 
 
 describe('Login component testing', () => {
@@ -48,5 +50,23 @@ describe('Login component testing', () => {
         expect(button).toBeDisabled();
     });
 
+    it('returns a token and staff id for a successful login', async() => {
+        axios.get.mockResolvedValue({
+            data: [
+              {
+                token: "1234",
+                id: 1,
+              }
+            ]
+          }); 
+
+          const user = await checkUserCredentials();
+          expect(user.data[0]).toEqual(
+            {
+              token: "1234",
+              id: 1,
+            }
+          )
+    });
 
 });
