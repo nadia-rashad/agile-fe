@@ -62,11 +62,11 @@ function AddSkill(){
         <div  className="container">
             <Form onSubmit={onFormSubmit}>
              <Form.Label >Skill Name</Form.Label>
-             <Form.Control type="text" onChange={onInputSkillName} value={skillName} />
+             <Form.Control aria-label='Text field to enter skill name' type="text" onChange={onInputSkillName} value={skillName} />
 
            <br></br>
              <Dropdown>
-             <DropdownButton title={selectedCategory ? selectedCategory : "Categories"} onSelect={handleSelect} >
+             <DropdownButton aria-label='Dropdown menu to choose the skill category' title={selectedCategory ? selectedCategory : "Categories"} onSelect={handleSelect} >
 
              {!categories? 'No Categories to display':  categories.map((categories) => {
                      return <Dropdown.Item value={categories.description} eventKey={categories.description} key={categories.id}  >{categories.description}</Dropdown.Item>
@@ -75,7 +75,7 @@ function AddSkill(){
              </Dropdown> 
              <br></br>
 
-             <Button variant="primary" type="submit" disabled={!skillName || !selectedCategory} >
+             <Button aria-label='Submit new skill' variant="primary" type="submit" disabled={!skillName || !selectedCategory}>
              Save
              </Button>
              <Toaster toastOptions={{

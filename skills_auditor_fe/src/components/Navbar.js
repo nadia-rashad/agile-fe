@@ -19,13 +19,13 @@ export default function Navbar(props) {
 
     return (
       <div>      
-        <nav className="navigation">
-        <a href="/" className="brand-name">
+        <nav aria-label='Page Header' className="navigation" >
+        <a aria-label='Link to homepage' href="/" className="brand-name">
           Skills Auditor
         </a>
 
               
-        <button className="hamburger" onClick={() => {
+        <button aria-label='Button to open navigation pane' className="hamburger" onClick={() => {
           setIsNavExpanded(!isNavExpanded);
         }}>
           <svg
@@ -41,24 +41,6 @@ export default function Navbar(props) {
             />
           </svg>
         </button> 
-        <button className="hamburger" onClick={() => {
-          setIsNavExpanded(!isNavExpanded);
-        }}>
-
-
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5"
-            viewBox="0 0 20 20"
-            fill="white"
-          >
-            <path
-              fillRule="evenodd"
-              d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM9 15a1 1 0 011-1h6a1 1 0 110 2h-6a1 1 0 01-1-1z"
-              clipRule="evenodd"
-            />
-          </svg>
-        </button>
 
         <div
          className={
@@ -68,31 +50,31 @@ export default function Navbar(props) {
           
           <ul>
              <li>
-              <a href="/home">Home</a>
+              <a href="/home" aria-label='Link to homepage'>Home</a>
             </li>
           <li>
-            <a href="/manager/view_edit_staff_skills">View/ Edit staff skill</a>
+            <a href="/manager/view_edit_staff_skills" aria-label='Link to view and edit skills assigned to employees'>View/ Edit staff skill</a>
           </li>
           <li>
-            <a href="/manager/add_category">Add category</a>
+            <a href="/manager/add_category" aria-label='Link to add a new category'>Add category</a>
           </li>
           <li>
-            <a href="/manager/add_skill">Add skill</a>
+            <a href="/manager/add_skill" aria-label='Link to add a new skill'>Add skill</a>
           </li>
           <li>
-              <a href='/manager/add_staff'>Add staff</a>
+              <a href='/manager/add_staff' aria-label='Link to add a new employee'>Add staff</a>
           </li>
           <li>
-              <a href='/manager/view_edit_categories'>View/ Edit categories</a>
+              <a href='/manager/view_edit_categories' aria-label='Link to view and edit skill categories'>View/ Edit categories</a>
           </li>
           <li>
-              <a href='/manager/view_edit_skills'>View/ Edit skills</a>
+              <a href='/manager/view_edit_skills' aria-label='Link to view and edit skill'>View/ Edit skills</a>
           </li>
           <li>
-              <a href='/manager/view_edit_staff'>View/ Edit staff</a>
+              <a href='/manager/view_edit_staff' aria-label='Link to view and edit staff details'>View/ Edit staff</a>
           </li>
           <li>
-              <a onClick={handleLogout} href='/'>Log out</a>
+              <a aria-label='Click here to logout' onClick={handleLogout} href='/'>Log out</a>
             </li>
         
           </ul>

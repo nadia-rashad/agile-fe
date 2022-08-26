@@ -36,11 +36,11 @@ return (
         <Form onSubmit={onFormSubmit}>
             <Form.Group className="mb-3">
                 <Form.Label >Category Name</Form.Label>
-                <Form.Control type="text" onChange={onInputDescription} value={description} />
+                <Form.Control  aria-label='Text field to enter category name' type="text" onChange={onInputDescription} value={description} />
             </Form.Group>
 
             <br></br>
-            <Button variant="primary" type="submit" disabled={!description}>
+            <Button aria-label='Submit new category' variant="primary" type="submit" disabled={!description}>
                 Add Category
             </Button>
 
