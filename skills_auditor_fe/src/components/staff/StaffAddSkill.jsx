@@ -12,9 +12,7 @@ import { SkillStrength } from '../utilities/SkillStrength';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 
-function StaffAddSkill(){
-    const loggedInUser = JSON.parse(localStorage.getItem('user'));
-
+function StaffAddSkill(props){
     const [assignedSkills, setAssignedSkills] = useState([]);
     const [allSkills, setAllSkills] = useState([]); // comes from api call - this is all skills in the db
     const [strengths, setStrengths] = useState([]);
@@ -23,6 +21,14 @@ function StaffAddSkill(){
     const [selectedSkillId, setSkillId] = useState(0); // id of the skill selected
     const [selectedStrength, setStrength] = useState('');
     const [tableData, setTableData] = useState([]);
+    const [userData, setUserData] = useState(0);
+
+    useEffect( () => {
+        const userDetails = props.userDetails.details
+        setUserData(userDetails)
+    }, [
+        props
+    ])
 
     useEffect( () => {
         async function fetchAllSkills() {
@@ -33,17 +39,18 @@ function StaffAddSkill(){
         fetchAllSkills();
 
         async function fetchAssignedSkills() {
-            await api.fetchAssignedSkills(loggedInUser).then((res) => {
+            await api.fetchAssignedSkills(await userData.id).then((res) => {
                 setAssignedSkills(res.data);
             })
         }
-        fetchAssignedSkills();
-
-        
-
+        if(userData?.id){
+            fetchAssignedSkills();
+        }
         setStrengths(SkillStrength);
 
-    }, [])
+    }, [
+        userData
+    ])
 
     useEffect (() => {
         async function fetchTableData() {
@@ -81,7 +88,7 @@ function StaffAddSkill(){
 
         const newSkillToAssign = {
             skill_id: selectedSkillId,
-            staff_id: loggedInUser,
+            staff_id: userData.id,
             expiry_date: expiryDate,
             strength: selectedStrength
         }
