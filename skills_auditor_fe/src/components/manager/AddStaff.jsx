@@ -16,12 +16,15 @@ function AddStaff() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [jobRoles, setJobRoles] = useState([]);
-    const [systemRoles, setSystemRoles] = useState([])   
+    const [systemRoles, setSystemRoles] = useState([]);
+    const [lineManagers, setLineManagers] = useState([]);
 
     const [selectedJobRole, setJobRole] = useState('');
     const [selectedJobRoleId, setJobRoleId] = useState(0);
     const [selectedSystemRole, setSystemRole] = useState('');
     const [selectedSystemRoleId, setSystemRoleId] = useState(0);
+    const [selectedLineManager, setLineManager] = useState('');
+    const [selectedLineManagerId, setLineManagerId] = useState(0);
 
     const onInputTitle =  ({target:{value}}) => setTitle(value);
     const onInputFirstName = ({target:{value}}) => setFirstName(value);
@@ -41,8 +44,16 @@ function AddStaff() {
                 setSystemRoles(res.data);
             })
         }
+
+        async function fetchAllManagers() {
+            await api.fetchStaffBySystemRoleId(1).then((res) => {
+                setLineManagers(res.data)
+            })
+        }
+
         fetchJobRoles();
         fetchSystemRoles();
+        fetchAllManagers();
     }, [])
 
     const convertSelectedJobRoleToId = async (e)=>{
@@ -63,6 +74,14 @@ function AddStaff() {
        
     }
 
+    const setSelectedManagerDetails= async (e)=>{
+        await api.fetchCurrentStaff(e).then((res) => {
+            setLineManagerId(res.data[0].id);
+            setLineManager(`${res.data[0].firstName} ${res.data[0].surname}`)
+        })
+       
+    }
+
     const onFormSubmit = async (e) => {
       e.preventDefault()
 
@@ -73,7 +92,8 @@ function AddStaff() {
         email: email,
         job_role_id: selectedJobRoleId,
         password: password,
-        system_role_id: selectedSystemRoleId
+        system_role_id: selectedSystemRoleId,
+        manager_id: selectedLineManagerId
       }
 
         await api.addStaff(userToAdd).then((res) => {
@@ -86,6 +106,7 @@ function AddStaff() {
                 setPassword('');
                 setJobRole('');
                 setSystemRole('');
+                setLineManager('');
             }
             else {
                 toast(res.data.message);
@@ -141,9 +162,23 @@ function AddStaff() {
                     </Dropdown> 
                     <br></br>
 
+                    <Form.Label >Line Manager</Form.Label> 
+                    <br></br>
+                    <Dropdown>
+                    <DropdownButton title={selectedLineManager ? selectedLineManager : "Assign a line manager"} onSelect={setSelectedManagerDetails} >
+
+                    {!lineManagers? 'No managers to display':  lineManagers.map((lineManagers) => {
+                        return <Dropdown.Item value={`${lineManagers.firstName} ${lineManagers.surname}`}  eventKey={lineManagers.id} key={lineManagers.id} >{lineManagers.firstName} {lineManagers.surname}</Dropdown.Item>
+                        }) 
+                    }
+                    </DropdownButton>
+                    </Dropdown> 
+                    <br></br>
+
                 </Form.Group>
 
                 <Button aria-label='Submit new employee' variant="primary" type="submit" disabled={!title || !firstName || !surname || !email || !password || !selectedJobRole || !selectedSystemRole}>
+
                     Add Staff Member
                 </Button>
                 <Toaster toastOptions={{

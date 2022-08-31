@@ -101,3 +101,7 @@ export const fetchAllSystemRoles = () => {
 export const fetchSystemRoleId = (description) => {
     return Axios.get(`${BaseURL}system_role/desc/${description}`)
 }
+
+export const fetchStaffBySystemRoleId = (systemRoleId) => {
+    return Axios.get(`${BaseURL}staff/system_role_id/${systemRoleId}`)
+}
