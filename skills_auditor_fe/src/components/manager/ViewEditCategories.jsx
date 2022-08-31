@@ -42,10 +42,6 @@ function ViewEditCategories() {
             setSelectedCategory(categoryDetails[0]);
     }
 
-    const refreshPage = () =>{
-        window.location.reload(false);
-    }
-
     const onFormSubmit = async (event) => {
         event.preventDefault()
   
@@ -57,6 +53,7 @@ function ViewEditCategories() {
         await api.updateCategoryDetails(updatedCategoryDetails).then((res) => {
             if(res.status === 200){
                 toast("Category sucessfully edited")
+                setTimeout( window.location.reload(false), 10000);
             }
             else {
                 toast(res.data.message)
@@ -88,7 +85,7 @@ function ViewEditCategories() {
             </Form.Group>
 
             <br></br>
-            <Button variant="primary" type="submit" disabled={!description} onClick={refreshPage}>
+            <Button variant="primary" type="submit" disabled={!description} >
                 Save
             </Button>
 
