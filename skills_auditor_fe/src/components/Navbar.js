@@ -108,10 +108,7 @@ export default function Navbar(props) {
             <a href="/staff/my_details">My details</a>
           </li>
           <li>
-            <a href="/staff/add_skill">Add Skill</a>
-          </li>
-          <li>
-            <a href="/staff/view_edit_skill">View/ Edit skills</a>
+            <a href="/staff/skills">Assigned Skills</a>
           </li>
           <li>
               <a onClick={handleLogout} href='/'>Log out</a>
