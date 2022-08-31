@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.18.6",
     "@gatsbyjs/reach-router": "^1.3.9",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
@@ -22,7 +23,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "jest --watch",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -42,5 +43,11 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "jest-environment-jsdom": "^28.1.3",
+    "jest-localstorage-mock": "^2.4.22",
+    "react-test-renderer": "^18.2.0",
+    "supertest": "^6.2.4"
   }
 }

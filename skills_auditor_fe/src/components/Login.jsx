@@ -50,24 +50,26 @@ function Login({setToken, setUser}) {
     return(
         <div className='container'>
 
+          <h1 aria-label="page header">Skills Auditor</h1>
+
           {!authenticated ?  
 <>
-          <h2>Login</h2>
+          <h2 aria-label='login header'>Login</h2>
 
           
-     <Form onSubmit={onFormSubmit}>
-      <Form.Group className="mb-3" controlId="formBasicEmail">
+     <Form onSubmit={onFormSubmit} aria-label="login form" id='login_form' >
+      <Form.Group className="mb-3" controlId="formBasicEmail"  >
         <Form.Label>Email address</Form.Label>
-        <Form.Control aria-label='Text feild to enter email' type="email" onChange={onInputEmail}/>
+        <Form.Control aria-label='Text feild to enter email' type="email"  onChange={onInputEmail} data-testid='username_input'/>
 
       </Form.Group>
 
       <Form.Group className="mb-3" controlId="formBasicPassword">
         <Form.Label>Password</Form.Label>
-        <Form.Control aria-label='Text feild to enter password' type="password" onChange={onInputPassword}/>
+        <Form.Control aria-label='Text feild to enter password' type="password" data-testid='password_input' onChange={onInputPassword}/>
       </Form.Group>
      
-      <Button aria-label='Button to login' variant="primary" type="submit">
+      <Button aria-label='Button to login' variant="primary" type="submit" data-testid='submit' disabled={!email || !password}>
         Submit
       </Button>
       <Toaster toastOptions={{

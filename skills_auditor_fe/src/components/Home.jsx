@@ -8,7 +8,7 @@ function Home() {
     return(
         <div className='container'>
 
-          <h1>homepage</h1>
+          <h1 data-testid='home-header'>homepage</h1>
           
        </div>
     )

@@ -26,16 +26,20 @@ export const addNewSkill = (skill) => {
     return Axios.post(`${BaseURL}skill`, skill)
 }
 
+export const fetchSkillByDescription = (description) => {
+    return Axios.get(`${BaseURL}skill/desc/${description}`)
+}
+
+export const updateSkillDetails = (skill) => {
+    return Axios.put(`${BaseURL}skill/`, skill)
+}
+
 export const fetchAssignedStaff = (managerId) => {
     return Axios.get(`${BaseURL}staff/assignedStaff/${managerId}`)
 }
 
 export const fetchAllSkills = () => {
     return Axios.get(`${BaseURL}skill`)
-}
-
-export const fetchSkillId = (description) => {
-    return Axios.get(`${BaseURL}skill/desc/${description}`)
 }
 
 export const fetchSkillById = (id) => {
@@ -70,8 +74,16 @@ export const fetchAllCategories = () => {
     return Axios.get(`${BaseURL}category`)
 }
 
-export const fetchCategoryId = (description) => {
+export const fetchCategoryByDescription = (description) => {
     return Axios.get(`${BaseURL}category/desc/${description}`)
+}
+
+export const fetchCategoryById = (categoryId) => {
+    return Axios.get(`${BaseURL}category/id/${categoryId}`)
+}
+
+export const updateCategoryDetails = (category) => {
+    return Axios.put(`${BaseURL}category/`, category)
 }
 
 export const addStaff = (staff) => {
@@ -92,4 +104,8 @@ export const fetchAllSystemRoles = () => {
 
 export const fetchSystemRoleId = (description) => {
     return Axios.get(`${BaseURL}system_role/desc/${description}`)
+}
+
+export const fetchStaffBySystemRoleId = (systemRoleId) => {
+    return Axios.get(`${BaseURL}staff/system_role_id/${systemRoleId}`)
 }
