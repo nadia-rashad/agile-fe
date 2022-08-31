@@ -30,7 +30,7 @@ function AddSkill(){
     const handleSelect= async (e)=>{
         setCategory(e);
 
-        await api.fetchCategoryId(e).then((res) => {
+        await api.fetchCategoryByDescription(e).then((res) => {
             setCategoryId(res.data[0].id);
         })
        

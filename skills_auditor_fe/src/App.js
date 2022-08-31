@@ -61,7 +61,7 @@ function App() {
           <Route exact path='/manager/view_edit_skills' element={<ViewEditSkills/>} />
           <Route exact path='/manager/view_edit_staff' element={<ViewEditStaff userDetails={userDetails}/>} />
           <Route exact path='/staff/view_edit_skill' element={<StaffViewEditSkill/>} />
-          <Route exact path='/staff/add_skill' element={<StaffAddSkill/>} />
+          <Route exact path='/staff/add_skill' element={<StaffAddSkill userDetails={userDetails}/>} />
           <Route exact path='/staff/my_details' element={<StaffDetails userDetails={userDetails}/>} />
         </Routes>
       </Router>

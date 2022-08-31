@@ -33,6 +33,7 @@ function ViewEditStaff(props) {
         useEffect(()=> {
 
             const loggedInUser = props.userDetails.details;
+
             if (loggedInUser) {
               setUserData(loggedInUser);
              }
