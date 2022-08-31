@@ -7,6 +7,7 @@ import React from 'react';
 import {render, screen, fireEvent} from '@testing-library/react';
 import '@testing-library/jest-dom';
 import {checkUserCredentials} from '../api'
+import Home from './Home';
 const axios = require('axios');
 
 jest.mock('axios');
@@ -85,5 +86,45 @@ describe('Login component testing', () => {
               id: 1,
             }
           )
+    });
+
+    it('opens the homepage once successfully logging in', async () => {
+    
+        const {loginPage} = render(
+          <Login/>
+        )
+        const {home} = render(
+          <Home/>
+        )
+
+        axios.get.mockResolvedValue({
+          data: [
+            {
+              token: "1234",
+              id: 1,
+            }
+          ]
+        }); 
+
+        const user = await checkUserCredentials();
+      
+        const userNameField = screen.getByTestId('username_input');
+        fireEvent.change(userNameField, {target: {value: 'username'}});
+    
+        const passwordField = screen.getByTestId('password_input');
+        fireEvent.change(passwordField, {target: {value: 'password'}});
+
+        screen.getByTestId('submit').click();
+
+        const homepage = screen.getByTestId('home-header');
+
+        expect(user.data[0]).toEqual(
+          {
+            token: "1234",
+            id: 1,
+          }
+        )
+        expect(await screen.findByText("homepage")).toBeVisible();
+        expect(homepage).toBeInTheDocument();      
     });
 });
