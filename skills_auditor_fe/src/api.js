@@ -50,6 +50,10 @@ export const fetchAssignedSkills = (id) => {
     return Axios.get(`${BaseURL}staff_skill/st_id/${id}`)
 }
 
+export const deleteStaffSkill = (id) => {
+    return Axios.delete(`${BaseURL}staff_skill/delete/${id}`)
+}
+
 export const assignSkill = (staffSkill) => {
     return Axios.post(`${BaseURL}staff_skill`, staffSkill)
 }

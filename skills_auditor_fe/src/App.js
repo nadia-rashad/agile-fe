@@ -1,8 +1,7 @@
 import './components/styles/styles.css';
 import React, {useState, useEffect} from 'react';
 import Home from './components/Home';
-import StaffAddSkill from './components/staff/StaffAddSkill';
-import StaffViewEditSkill from './components/staff/StaffViewEditSkill';
+import StaffSkills from './components/staff/StaffSkills';
 import StaffDetails from './components/staff/StaffDetails';
 import ViewEditStaffSkills from './components/manager/ViewEditStaffSkills';
 import ViewEditCategories from './components/manager/ViewEditCategories';
@@ -60,8 +59,7 @@ function App() {
           <Route exact path='/manager/view_edit_categories' element={<ViewEditCategories/>} />
           <Route exact path='/manager/view_edit_skills' element={<ViewEditSkills/>} />
           <Route exact path='/manager/view_edit_staff' element={<ViewEditStaff userDetails={userDetails}/>} />
-          <Route exact path='/staff/view_edit_skill' element={<StaffViewEditSkill/>} />
-          <Route exact path='/staff/add_skill' element={<StaffAddSkill userDetails={userDetails}/>} />
+          <Route exact path='/staff/skills' element={<StaffSkills userDetails={userDetails}/>} />
           <Route exact path='/staff/my_details' element={<StaffDetails userDetails={userDetails}/>} />
         </Routes>
       </Router>
