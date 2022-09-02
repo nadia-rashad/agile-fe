@@ -52,7 +52,7 @@ function App() {
          <Routes>
           <Route exact path='/' element={<Login/>}/>
           <Route exact path='/home' element={<Home/>}/>
-          <Route exact path='/manager/view_edit_staff_skills' element={<ViewEditStaffSkills/>} />
+          <Route exact path='/manager/view_edit_staff_skills' element={<ViewEditStaffSkills userDetails={userDetails}/>} />
           <Route exact path='/manager/add_category' element={<AddCategories/>} />
           <Route exact path='/manager/add_skill' element={<AddSkill/>} />
           <Route exact path='/manager/add_staff' element={<AddStaff/>} />
