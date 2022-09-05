@@ -6,6 +6,7 @@ import * as api from '../api';
 import { useState } from "react";
 import toast, { Toaster } from 'react-hot-toast';
 import Home from './Home';
+import loginIcon from './resources/login-icon.jpeg';
 
 
 function Login({setToken, setUser}) {
@@ -48,10 +49,10 @@ function Login({setToken, setUser}) {
       }
 
     return(
-      <div className='container'>
+      <div className='loginContainer'>
         <h1 aria-label="page header">Skills Auditor</h1>
           {!authenticated ? <>
-            <h2 aria-label='login header'>Login</h2>      
+            <img src={loginIcon} alt="Log in icon"></img>
             <Form onSubmit={onFormSubmit} aria-label="login form" id='login_form' >
               <Form.Group className="mb-3" controlId="formBasicEmail"  >
                 <Form.Label>Email Address:</Form.Label>

@@ -1,5 +1,4 @@
 import '../styles/styles.css';
-import './StaffAddSkill.css';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useState, useEffect } from "react";
