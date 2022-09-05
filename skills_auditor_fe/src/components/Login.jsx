@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import '../components/styles/styles.css'
+import './Login.css'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import * as api from '../api';
@@ -48,42 +48,34 @@ function Login({setToken, setUser}) {
       }
 
     return(
-        <div className='container'>
-
-          <h1 aria-label="page header">Skills Auditor</h1>
-
-          {!authenticated ?  
-<>
-          <h2 aria-label='login header'>Login</h2>
-
-          
-     <Form onSubmit={onFormSubmit} aria-label="login form" id='login_form' >
-      <Form.Group className="mb-3" controlId="formBasicEmail"  >
-        <Form.Label>Email address</Form.Label>
-        <Form.Control aria-label='Text feild to enter email' type="email"  onChange={onInputEmail} data-testid='username_input'/>
-
-      </Form.Group>
-
-      <Form.Group className="mb-3" controlId="formBasicPassword">
-        <Form.Label>Password</Form.Label>
-        <Form.Control aria-label='Text feild to enter password' type="password" data-testid='password_input' onChange={onInputPassword}/>
-      </Form.Group>
-     
-      <Button aria-label='Button to login' variant="primary" type="submit" data-testid='submit' disabled={!email || !password}>
-        Submit
-      </Button>
-      <Toaster toastOptions={{
-    className: '',
-    style: {
-      border: '2px solid #713200',
-      padding: '16px',
-      color: '#713200',
-    },
-  }}/>
-    </Form>
-    </>
-: <Home/>}
-       </div>
+      <div className='container'>
+        <h1 aria-label="page header">Skills Auditor</h1>
+          {!authenticated ? <>
+            <h2 aria-label='login header'>Login</h2>      
+            <Form onSubmit={onFormSubmit} aria-label="login form" id='login_form' >
+              <Form.Group className="mb-3" controlId="formBasicEmail"  >
+                <Form.Label>Email Address:</Form.Label>
+                <Form.Control aria-label='Text feild to enter email' type="email"  onChange={onInputEmail} data-testid='username_input'/>
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="formBasicPassword">
+                <Form.Label>Password:</Form.Label>
+                <Form.Control aria-label='Text feild to enter password' type="password" data-testid='password_input' onChange={onInputPassword}/>
+              </Form.Group>
+              <Button aria-label='Button to login' variant="primary" type="submit" data-testid='submit' disabled={!email || !password}>
+                Submit
+              </Button>
+              <Toaster toastOptions={{
+                className: '',
+                style: {
+                  border: '2px solid #713200',
+                  padding: '16px',
+                  color: '#713200',
+                },
+              }}/>
+            </Form>
+            </>
+          : <Home/>}
+      </div>
     )
 }
 

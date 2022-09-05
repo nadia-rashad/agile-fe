@@ -49,32 +49,29 @@ export default function Navbar(props) {
           {loggedInUser?.system_role_id === MANAGER_SYSTEM_ROLE ?      
           
           <ul>
-             <li>
-              <a href="/home" aria-label='Link to homepage'>Home</a>
+            <li>
+              <a href="/manager/view_edit_staff_skills" aria-label='Link to view and edit skills assigned to employees'>Staff Skills</a>
             </li>
-          <li>
-            <a href="/manager/view_edit_staff_skills" aria-label='Link to view and edit skills assigned to employees'>View/ Edit staff skill</a>
-          </li>
-          <li>
-            <a href="/manager/add_category" aria-label='Link to add a new category'>Add category</a>
-          </li>
-          <li>
-            <a href="/manager/add_skill" aria-label='Link to add a new skill'>Add skill</a>
-          </li>
-          <li>
-              <a href='/manager/add_staff' aria-label='Link to add a new employee'>Add staff</a>
-          </li>
-          <li>
-              <a href='/manager/view_edit_categories' aria-label='Link to view and edit skill categories'>View/ Edit categories</a>
-          </li>
-          <li>
-              <a href='/manager/view_edit_skills' aria-label='Link to view and edit skill'>View/ Edit skills</a>
-          </li>
-          <li>
-              <a href='/manager/view_edit_staff' aria-label='Link to view and edit staff details'>View/ Edit staff</a>
-          </li>
-          <li>
-              <a aria-label='Click here to logout' onClick={handleLogout} href='/'>Log out</a>
+            <li>
+              <a href="/manager/add_category" aria-label='Link to add a new category'>Add Category</a>
+            </li>
+            <li>
+              <a href="/manager/add_skill" aria-label='Link to add a new skill'>Add Skill</a>
+            </li>
+            <li>
+                <a href='/manager/add_staff' aria-label='Link to add a new employee'>Add Staff</a>
+            </li>
+            <li>
+                <a href='/manager/view_edit_categories' aria-label='Link to view and edit skill categories'>Edit Categories</a>
+            </li>
+            <li>
+                <a href='/manager/view_edit_skills' aria-label='Link to view and edit skill'>Edit Skills</a>
+            </li>
+            <li>
+                <a href='/manager/view_edit_staff' aria-label='Link to view and edit staff details'>Edit Staff</a>
+            </li>
+            <li>
+              <a aria-label='Click here to logout' onClick={handleLogout} href='/'>Log Out</a>
             </li>
         
           </ul>
@@ -83,16 +80,13 @@ export default function Navbar(props) {
           :     
           
           <ul>
-             <li>
-              <a href="/home">Home</a>
+            <li>
+              <a href="/staff/my_details">My Details</a>
             </li>
-          <li>
-            <a href="/staff/my_details">My details</a>
-          </li>
-          <li>
-            <a href="/staff/skills">Assigned Skills</a>
-          </li>
-          <li>
+            <li>
+              <a href="/staff/skills">Assigned Skills</a>
+            </li>
+            <li>
               <a onClick={handleLogout} href='/'>Log out</a>
             </li>
           </ul>
