@@ -28,7 +28,7 @@ body {
 
 #routerContainer {
   max-width: 90%;
-  height: calc(100vh - 60px);
+  height: 100%;
   margin-right: auto;
   margin-left: auto;
   padding: 1rem;
