@@ -1,5 +1,4 @@
 import '../styles/styles.css';
-import './StaffAddSkill.css';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useState, useEffect } from "react";
@@ -68,8 +67,7 @@ function StaffSkills(props){
 
     const handleSelectSkill = async (s) => {
         setSelectedNewSkill(s);
-
-        await api.fetchSkillId(s).then((res) => {
+        await api.fetchSkillByDescription(s).then((res) => {
             setSkillId(res.data[0].id);
         })
        
