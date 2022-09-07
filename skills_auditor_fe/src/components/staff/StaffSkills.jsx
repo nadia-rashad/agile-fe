@@ -2,7 +2,7 @@ import '../global-styles/styles.css';
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import { useState, useEffect } from "react";
+import { useState, useEffect, act } from "react";
 import * as api from '../../api.js';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
@@ -13,6 +13,7 @@ import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 
 function StaffSkills(props){
+
     const [assignedSkills, setAssignedSkills] = useState([]);
     const [allSkills, setAllSkills] = useState([]); // comes from api call - this is all skills in the db
     const [strengths, setStrengths] = useState([]);
@@ -31,15 +32,23 @@ function StaffSkills(props){
     ])
 
     useEffect( () => {
-        async function fetchAllSkills() {
-            await api.fetchAllSkills().then((res) => {
-                setAllSkills(res.data);
-            })
+
+        try {
+            async function fetchAllSkills() {
+               await api.fetchAllSkills().then((res) => {
+                    console.log(res)
+                    setAllSkills(res.data);
+                })
+            }
+            fetchAllSkills();
+        } catch(err) {
+            console.log(err)
         }
-        fetchAllSkills();
+        
 
         async function fetchAssignedSkills() {
             await api.fetchAssignedSkills(await userData.id).then((res) => {
+                console.log(res)
                 setAssignedSkills(res.data);
             })
         }
@@ -132,7 +141,6 @@ function StaffSkills(props){
                     })}
                 </DropdownButton>
             </Dropdown>
-            <br/>
             <Form.Label>Strength</Form.Label>
             <Dropdown>
                 <DropdownButton title = { selectedStrength ? selectedStrength : "Select a Skill Strength" } onSelect = {handleSelectStrength} data-testid='strength-dropdown' >
@@ -144,7 +152,7 @@ function StaffSkills(props){
             <br/>
             <Form.Label>Expiry Date</Form.Label>
             <DatePicker selected={expiryDate} onChange={(date) => setExpiryDate(date)} dateFormat="dd/MM/yyyy" data-testid='date-picker'/>
-            <Button variant="primary" type="submit" disabled={!selectedSkill} onClick={onFormAdd} > Add Skill </Button>
+            <Button variant="primary" type="submit" disabled={!selectedNewSkill} onClick={onFormAdd} > Add Skill </Button>
             <Toaster toastOptions={{
                 className: '',
                 style: {
