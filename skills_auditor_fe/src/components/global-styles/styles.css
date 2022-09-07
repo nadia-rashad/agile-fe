@@ -14,11 +14,25 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+#rootContainer {
+  background-color: #dfe8de;
+}
+
 .container {
   max-width: 90%;
+  /* height: 100vh; */
   margin-right: auto;
   margin-left: auto;
   padding: 1rem;
+}
+
+#routerContainer {
+  max-width: 90%;
+  height: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  padding: 1rem;
+  background-color: #F7FFF6;
 }
 
 article h1 {
@@ -30,7 +44,40 @@ article h1 {
   overflow-y: scroll;
 }
 
+.dropdown-menu.show {
+  background-color: #cdd8cb;
+}
+
+
 .dropdown-padding {
   padding-bottom: 20px;
 }
 
+thead {
+  background: #93b48b;
+  color: white;
+}
+
+tbody {
+  background: #dfe8de;
+}
+
+.btn.btn-primary,
+.dropdown-toggle.btn.btn-primary {
+  background-color: #93b48b;
+  border-color: #4e604a4d;
+  color: white;
+  font-weight: bold;
+}
+
+.btn.btn-primary:disabled {
+  background-color: #354232;
+}
+
+.btn.btn-primary:hover {
+  background-color: #4e604a4d;
+}
+
+select {
+  background-color: #dfe8de;
+}
