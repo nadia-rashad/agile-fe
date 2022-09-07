@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import '../components/styles/styles.css'
+import '../components/global-styles/styles.css'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import * as api from '../api';

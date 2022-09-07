@@ -1,4 +1,4 @@
-import '../styles/styles.css'
+import '../global-styles/styles.css'
 
 function StaffViewEditSkill() {
     return (

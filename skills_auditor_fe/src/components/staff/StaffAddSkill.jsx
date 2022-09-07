@@ -1,5 +1,6 @@
-import '../styles/styles.css';
+import '../global-styles/styles.css';
 import './StaffAddSkill.css';
+import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useState, useEffect } from "react";
@@ -106,12 +107,12 @@ function StaffAddSkill(props){
     
     return (
         <div  className="container">
-            <Form onSubmit={onFormSubmit} >
-            <Form.Label>Assign Skills</Form.Label>
+            <Form onSubmit={onFormSubmit} aria-label="add skill form" data-testid='add skill form' >
+            <h2 aria-label='assign skills header' >Assign Skills</h2>
             <br/>
             <Form.Label>Skills</Form.Label>
             <Dropdown>
-                <DropdownButton title={selectedSkill ? selectedSkill : "Select a Skill" } onSelect={handleSelectSkill}>
+                <DropdownButton title={selectedSkill ? selectedSkill : "Select a Skill" } onSelect={handleSelectSkill} data-testid='skill-dropdown'>
                     {!allSkills? 'No Skills to display':  allSkills.map((skills) => {
                         return <Dropdown.Item value={skills.description} eventKey={skills.description} key={skills.id}  >{skills.description}</Dropdown.Item>
                     })}
@@ -120,7 +121,7 @@ function StaffAddSkill(props){
             <br/>
             <Form.Label>Strength</Form.Label>
             <Dropdown>
-                <DropdownButton title = { selectedStrength ? selectedStrength : "Select a Skill Strength" } onSelect = {handleSelectStrength} >
+                <DropdownButton title = { selectedStrength ? selectedStrength : "Select a Skill Strength" } onSelect = {handleSelectStrength} data-testid='strength-dropdown' >
                     {!strengths? 'Error, cannot find strength values': strengths.map((strengths) => {
                         return <Dropdown.Item value={strengths} eventKey={strengths} key={strengths}> {strengths}</Dropdown.Item>
                     })}
@@ -128,7 +129,7 @@ function StaffAddSkill(props){
             </Dropdown>
             <br/>
             <Form.Label>Expiry Date</Form.Label>
-            <DatePicker selected={expiryDate} onChange={(date) => setExpiryDate(date)} dateFormat="dd/MM/yyyy"/>
+            <DatePicker selected={expiryDate} onChange={(date) => setExpiryDate(date)} dateFormat="dd/MM/yyyy" data-testid='date-picker'/>
             <Button variant="primary" type="submit" disabled={!selectedSkill} onClick={refreshPage} > Add Skill </Button>
             <Toaster toastOptions={{
                 className: '',

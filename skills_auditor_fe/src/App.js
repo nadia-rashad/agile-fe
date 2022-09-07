@@ -1,4 +1,4 @@
-import './components/styles/styles.css';
+import './components/global-styles/styles.css';
 import React, {useState, useEffect} from 'react';
 import Home from './components/Home';
 import StaffAddSkill from './components/staff/StaffAddSkill';
@@ -18,7 +18,7 @@ import {
 } from "react-router-dom";
 import Navbar from './components/Navbar';
 import Login from './components/Login';
-import useToken from './components/useToken';
+import useToken from './components/utilities/useToken';
 import * as api from './api';
 
 
