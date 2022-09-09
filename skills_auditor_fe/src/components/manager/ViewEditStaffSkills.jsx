@@ -172,7 +172,7 @@ function ViewEditStaffSkills(props) {
             }}/>
             <div>
                 <h2>Assigned Skills</h2>
-                <select id="selectSkillSelect">
+                <select id="selectSkillSelect" aria-label='staff assigned skills table'>
                     {!tableData? 'No Assigned Skills': tableData.map((skill) => {
                         try{
                             return <option value={skill.skillId}>{skill.skillId}</option>

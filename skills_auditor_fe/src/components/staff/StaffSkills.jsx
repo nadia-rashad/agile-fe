@@ -117,7 +117,7 @@ function StaffSkills(props){
             <Dropdown>
                 <DropdownButton title={selectedNewSkill ? selectedNewSkill : "Select a Skill" } onSelect={handleSelectSkill}>
                     {!allSkills? 'No Skills to display':  allSkills.map((skills) => {
-                        return <Dropdown.Item value={skills.description} eventKey={skills.description} key={skills.id}  >{skills.description}</Dropdown.Item>
+                        return <Dropdown.Item aria-label={`${skills.description} button`} value={skills.description} eventKey={skills.description} key={skills.id}  >{skills.description}</Dropdown.Item>
                     })}
                 </DropdownButton>
             </Dropdown>
@@ -126,13 +126,13 @@ function StaffSkills(props){
             <Dropdown>
                 <DropdownButton title = { selectedStrength ? selectedStrength : "Select a Skill Strength" } onSelect = {handleSelectStrength} >
                     {!strengths? 'Error, cannot find strength values': strengths.map((strengths) => {
-                        return <Dropdown.Item value={strengths} eventKey={strengths} key={strengths}> {strengths}</Dropdown.Item>
+                        return <Dropdown.Item aria-label={`${strengths} button`} value={strengths} eventKey={strengths} key={strengths}> {strengths}</Dropdown.Item>
                     })}
                 </DropdownButton>
             </Dropdown>
             <br/>
             <Form.Label>Expiry Date</Form.Label>
-            <DatePicker selected={expiryDate} onChange={(date) => setExpiryDate(date)} dateFormat="dd/MM/yyyy"/>
+            <DatePicker selected={expiryDate} onChange={(date) => setExpiryDate(date)} dateFormat="dd/MM/yyyy" aria-label="date picker"/>
             <Button variant="primary" type="add" disabled={!selectedNewSkill} onClick={onFormAdd} > Add Skill </Button>
             <Toaster toastOptions={{
                 className: '',
@@ -144,7 +144,7 @@ function StaffSkills(props){
             }}/>
             <div>
                 <h2>Assigned Skills</h2>
-                <select id="selectSkillSelect">
+                <select id="selectSkillSelect" aria-label='assigned skills table section'>
                     {!tableData? 'No Assigned Skills': tableData.map((skill) => {
                         try{
                             return <option value={skill.skillId}>{skill.skillId}</option>
@@ -154,8 +154,8 @@ function StaffSkills(props){
                         }
                     })}
                 </select>
-                <Button variant="primary" type="remove" onClick={onFormRemove} > Remove Skill </Button>
-                <Table striped bordered hover>
+                <Button variant="primary" type="remove" onClick={onFormRemove} aria-label="remove skill button"> Remove Skill </Button>
+                <Table striped bordered hover aria-label="assigned skills table">
                     <thead>
                         <tr>
                             <th>ID</th>
