@@ -2,7 +2,7 @@ import '../global-styles/styles.css';
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import { useState, useEffect, act } from "react";
+import { useState, useEffect } from "react";
 import * as api from '../../api.js';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
@@ -36,7 +36,6 @@ function StaffSkills(props){
         try {
             async function fetchAllSkills() {
                await api.fetchAllSkills().then((res) => {
-                    console.log(res)
                     setAllSkills(res.data);
                 })
             }
@@ -48,18 +47,15 @@ function StaffSkills(props){
 
         async function fetchAssignedSkills() {
             await api.fetchAssignedSkills(await userData.id).then((res) => {
-                console.log(res)
                 setAssignedSkills(res.data);
             })
         }
-        if(userData?.id){
+         if(userData?.id){
             fetchAssignedSkills();
-        }
+         }
         setStrengths(SkillStrength);
 
-    }, [
-        userData
-    ])
+    }, [userData])
 
     useEffect (() => {
         async function fetchTableData() {
@@ -124,23 +120,14 @@ function StaffSkills(props){
             <h2 aria-label='assign skills header' >Assign Skills</h2>
             <br/>
             <Form.Label>Skills</Form.Label>
-            <Dropdown>
-                <DropdownButton title={selectedNewSkill ? selectedNewSkill : "Select a Skill" } onSelect={handleSelectSkill} data-testid='skill-dropdown'>
+            <Dropdown >
+                <DropdownButton data-testid='skill-dropdown' title={selectedNewSkill ? selectedNewSkill : "Select a Skill" } onSelect={handleSelectSkill} >
                 {!allSkills? 'No Skills to display':  allSkills.map((skills) => {
-                        return <Dropdown.Item value={skills.description} eventKey={skills.description} key={skills.id}  >{skills.description}</Dropdown.Item>
+                        return <Dropdown.Item data-testid='skill-dropdown-item' value={skills.description} eventKey={skills.description} key={skills.id}  >{skills.description}</Dropdown.Item>
                     })}
                 </DropdownButton>
             </Dropdown>
-            <Form.Label>Assign Skills</Form.Label>
-            <br/>
-            <Form.Label>Skills</Form.Label>
-            <Dropdown>
-                <DropdownButton title={selectedNewSkill ? selectedNewSkill : "Select a Skill" } onSelect={handleSelectSkill}>
-                    {!allSkills? 'No Skills to display':  allSkills.map((skills) => {
-                        return <Dropdown.Item value={skills.description} eventKey={skills.description} key={skills.id}  >{skills.description}</Dropdown.Item>
-                    })}
-                </DropdownButton>
-            </Dropdown>
+        <br></br>
             <Form.Label>Strength</Form.Label>
             <Dropdown>
                 <DropdownButton title = { selectedStrength ? selectedStrength : "Select a Skill Strength" } onSelect = {handleSelectStrength} data-testid='strength-dropdown' >
@@ -152,7 +139,7 @@ function StaffSkills(props){
             <br/>
             <Form.Label>Expiry Date</Form.Label>
             <DatePicker selected={expiryDate} onChange={(date) => setExpiryDate(date)} dateFormat="dd/MM/yyyy" data-testid='date-picker'/>
-            <Button variant="primary" type="submit" disabled={!selectedNewSkill} onClick={onFormAdd} > Add Skill </Button>
+            <Button data-testid="add-skill" variant="primary" type="submit" disabled={!selectedNewSkill} onClick={onFormAdd} > Add Skill </Button>
             <Toaster toastOptions={{
                 className: '',
                 style: {
@@ -168,12 +155,11 @@ function StaffSkills(props){
                         try{
                             return <option value={skill.skillId}>{skill.skillId}</option>
                         } catch(error) {
-                            console.log(error)
                             return 'Skills Loading'
                         }
                     })}
                 </select>
-                <Button variant="primary" type="remove" onClick={onFormRemove} > Remove Skill </Button>
+                <Button data-testid='remove-skill' variant="primary" type="remove" onClick={onFormRemove} > Remove Skill </Button>
                 <Table striped bordered hover>
                     <thead>
                         <tr>

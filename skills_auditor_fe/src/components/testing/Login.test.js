@@ -2,32 +2,41 @@
  * @jest-environment jsdom
  */
 
+import * as api from'../../api';
 import Login from '../Login';
 import React from 'react';
-import {render, screen, fireEvent} from '@testing-library/react';
-import '@testing-library/jest-dom';
-import {checkUserCredentials} from '../../api'
-import Home from '../Home';
+import {render, screen, fireEvent, waitFor} from '@testing-library/react';
+import '@testing-library/jest-dom'
 const axios = require('axios');
-
 jest.mock('axios');
 
 
+jest.mock('axios');
+
+const checkUserMockResponse = {data : [{details: 2,
+  token: "1149bed4-b737-4665-9b78-e353ca64c1d8"}]}
+
 describe('Login component testing', () => {
-    test('renders the login component with the correct headings', async () => {
-       const { loginPage } = render(
+    test('renders the login component with the correct fields', async () => {
+      render(
             <Login/>
         );
 
      const title = screen.getByRole("heading", {name : "page header"});
-     const pageHeader = screen.getByRole("heading", {name : "login header"});
+     const loginIcon = screen.getByRole("img", {name : "Log in icon"});
+     const form = screen.getByRole("form", {name : "login form"})
+     const emailTextBox = screen.getByRole("textbox", {name : "Text feild to enter email"})
+     const loginButton = screen.getByRole("button", {name : "Button to login"})
 
      expect(title).toBeInTheDocument();
-     expect(pageHeader).toBeInTheDocument();
+     expect(loginIcon).toBeInTheDocument();
+     expect(form).toBeInTheDocument();
+     expect(emailTextBox).toBeInTheDocument();
+     expect(loginButton).toBeInTheDocument();
     });
 
     test('renders the form on the login component', () => {
-        const { loginPage } = render(
+       render(
             <Login/>
         );
 
@@ -41,7 +50,7 @@ describe('Login component testing', () => {
     });
 
     test('disables the login submit button if no text is entered in the username and password fields', () => {
-        const { loginPage } = render(
+         render(
             <Login/>
         );
 
@@ -50,7 +59,7 @@ describe('Login component testing', () => {
     });
 
     test('enables the submit button once a username and password has been input', async () => {
-        const {loginPage} = render(
+         render(
           <Login/>
         )
      
@@ -69,62 +78,45 @@ describe('Login component testing', () => {
 
     });
 
-    test('returns a token and staff id for a successful login', async() => {
-        axios.get.mockResolvedValue({
-            data: [
-              {
-                token: "1234",
-                id: 1,
-              }
-            ]
-          }); 
+    test('login component calls checkUserCredentials', async () => {
 
-          const user = await checkUserCredentials();
-          expect(user.data[0]).toEqual(
-            {
-              token: "1234",
-              id: 1,
-            }
-          )
-    });
+      const checkCredentialsMock = jest.spyOn(api, "checkUserCredentials").mockResolvedValue(() => Promise.resolve(checkUserMockResponse));
 
-    test('opens the homepage once successfully logging in', async () => {
+      render(
+        <Login/>
+      )
+   
+      const userNameField = screen.getByTestId('username_input');
+      fireEvent.change(userNameField, {target: {value: 'hello'}});
+
+      const passwordField = screen.getByTestId('password_input');
+      fireEvent.change(passwordField, {target: {value: 'password'}});
+
+      expect(userNameField.value).toBe('hello');
+      expect(passwordField.value).toBe('password');
+  
+      const loginButton = screen.getByTestId('submit');
+      expect(loginButton).not.toBeDisabled();
+
+      fireEvent.submit(loginButton);
     
-        const {loginPage} = render(
-          <Login/>
-        )
-        const {home} = render(
-          <Home/>
-        )
-
-        axios.get.mockResolvedValue({
-          data: [
-            {
-              token: "1234",
-              id: 1,
-            }
-          ]
-        }); 
-
-        const user = await checkUserCredentials();
+      await waitFor(()=> expect(checkCredentialsMock).toHaveBeenCalled());
+      await waitFor(()=> expect(checkCredentialsMock).toHaveBeenCalledTimes(1));     
       
-        const userNameField = screen.getByTestId('username_input');
-        fireEvent.change(userNameField, {target: {value: 'username'}});
-    
-        const passwordField = screen.getByTestId('password_input');
-        fireEvent.change(passwordField, {target: {value: 'password'}});
-
-        screen.getByTestId('submit').click();
-
-        const homepage = screen.getByTestId('home-header');
-
-        expect(user.data[0]).toEqual(
-          {
-            token: "1234",
-            id: 1,
-          }
-        )
-        expect(await screen.findByText("homepage")).toBeVisible();
-        expect(homepage).toBeInTheDocument();      
     });
+
+});
+
+Object.defineProperty(window, 'matchMedia', {
+  writable: true,
+  value: jest.fn().mockImplementation(query => ({
+    matches: false,
+    media: query,
+    onchange: null,
+    addListener: jest.fn(), // Deprecated
+    removeListener: jest.fn(), // Deprecated
+    addEventListener: jest.fn(),
+    removeEventListener: jest.fn(),
+    dispatchEvent: jest.fn(),
+  })),
 });
