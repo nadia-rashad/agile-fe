@@ -42,6 +42,22 @@ function ViewEditCategories() {
             setSelectedCategory(categoryDetails[0]);
     }
 
+    const deleteCategory = async (event) => {
+        event.preventDefault()
+        await api.deleteCategory(selectedCategory.id).then((res) => {
+            if(res.data.status === 400){
+                toast("Category in use, it cannot be deleted");
+            }
+            else if(res.status === 200){
+                toast("Category sucessfully deleted")
+                setTimeout( window.location.reload(false), 30000);
+            } 
+            else {
+                toast(res.data.message)
+            }
+        })
+    }
+
     const onFormSubmit = async (event) => {
         event.preventDefault()
   
@@ -87,6 +103,12 @@ function ViewEditCategories() {
             <br></br>
             <Button variant="primary" type="submit" disabled={!description} >
                 Save
+            </Button>
+
+            <div className="vr"></div>
+
+            <Button variant="primary" type="button" onClick={deleteCategory} disabled={!description}>
+                Delete Category
             </Button>
 
             <Toaster toastOptions={{

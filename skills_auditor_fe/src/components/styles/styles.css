@@ -39,6 +39,10 @@ article h1 {
   margin: 1rem 0;
 }
 
+.vr {
+  margin-right: 25px;
+}
+
 .dropdown-menu {
   height: 200px;
   overflow-y: scroll;

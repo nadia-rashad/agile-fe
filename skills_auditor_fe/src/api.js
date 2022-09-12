@@ -46,6 +46,11 @@ export const fetchSkillById = (id) => {
     return Axios.get(`${BaseURL}skill/id/${id}`)
 }
 
+export const deleteSkill = (skillId) => {
+    return Axios.delete(`${BaseURL}skill/delete/${skillId}`)
+}
+
+
 export const fetchAssignedSkills = (id) => {
     return Axios.get(`${BaseURL}staff_skill/st_id/${id}`)
 }
@@ -84,6 +89,10 @@ export const fetchCategoryById = (categoryId) => {
 
 export const updateCategoryDetails = (category) => {
     return Axios.put(`${BaseURL}category/`, category)
+}
+
+export const deleteCategory = (categoryId) => {
+    return Axios.delete(`${BaseURL}category/delete/${categoryId}`)
 }
 
 export const addStaff = (staff) => {

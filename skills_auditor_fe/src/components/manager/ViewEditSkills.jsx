@@ -78,6 +78,22 @@ function ViewEditSkills() {
          setCategory(categoryDetails);
     }
 
+    const deleteSkill = async (event) => {
+        event.preventDefault()
+        await api.deleteSkill(selectedSkill.id).then((res) => {
+            if(res.data.status === 400){
+                toast("Skill in use, it cannot be deleted");
+            }
+            else if(res.status === 200){
+                toast("Skill sucessfully deleted")
+                setTimeout( window.location.reload(false), 30000);
+            } 
+            else {
+                toast(res.data.message)
+            }
+        })
+    }
+
     const refreshPage = () =>{
         window.location.reload(false);
     }
@@ -148,6 +164,13 @@ function ViewEditSkills() {
     <Button variant="primary" type="submit" disabled={!description} onClick={refreshPage}>
     Save
     </Button>
+
+    <div className="vr"></div>
+
+<Button variant="primary" type="button" onClick={deleteSkill} disabled={!description}>
+    Delete Category
+</Button>
+
     <Toaster toastOptions={{
     className: '',
     style: {
