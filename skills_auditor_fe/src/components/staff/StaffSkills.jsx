@@ -153,7 +153,7 @@ function StaffSkills(props){
             }}/>
             <div>
                 <h2>Assigned Skills</h2>
-                <select id="selectSkillSelect" aria-label='assigned skills table section'>
+                <select aria-label='assigned skills, select a skill ID to remove' id="selectSkillSelect">
                     {!tableData? 'No Assigned Skills': tableData.map((skill) => {
                         try{
                             return <option value={skill.skillId}>{skill.skillId}</option>

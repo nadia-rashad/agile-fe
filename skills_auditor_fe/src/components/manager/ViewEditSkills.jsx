@@ -78,6 +78,22 @@ function ViewEditSkills() {
          setCategory(categoryDetails);
     }
 
+    const deleteSkill = async (event) => {
+        event.preventDefault()
+        await api.deleteSkill(selectedSkill.id).then((res) => {
+            if(res.data.status === 400){
+                toast("Skill in use, it cannot be deleted");
+            }
+            else if(res.status === 200){
+                toast("Skill sucessfully deleted")
+                setTimeout( window.location.reload(false), 30000);
+            } 
+            else {
+                toast(res.data.message)
+            }
+        })
+    }
+
     const refreshPage = () =>{
         window.location.reload(false);
     }
@@ -113,7 +129,7 @@ function ViewEditSkills() {
     <Form.Group className="mb-3">
         <Form.Label >Skills</Form.Label>
         <Dropdown>
-            <DropdownButton title={!selectedSkillName ? "Select a skill to edit" : selectedSkillName} onSelect={handleSelectedSkill}>
+            <DropdownButton aria-label='Dropdown menu to choose a skill to edit' title={!selectedSkillName ? "Select a skill to edit" : selectedSkillName} onSelect={handleSelectedSkill}>
             {!skills? 'No skills to display':  skills.map((skill) => {
                 return <Dropdown.Item key={skill.id} id={skill.id} eventKey={`${skill.description}`} onClick={handleOnClickSkill}>
                 {skill.description}
@@ -126,13 +142,13 @@ function ViewEditSkills() {
     <br></br>
     <Form.Group>
         <Form.Label >Skill Name</Form.Label>
-        <Form.Control type="text" onChange={onInputDescription} value={description} />
+        <Form.Control aria-label='Text field to edit skill name' type="text" onChange={onInputDescription} value={description} />
     </Form.Group>
     <br></br> 
     <Form.Group> 
         <Form.Label >Skill Category</Form.Label>
         <Dropdown>
-            <DropdownButton title={!category ? "Select a category" : category.description} onSelect={handleSelectedCategory}>
+            <DropdownButton aria-label='Dropdown menu to edit skill category' title={!category ? "Select a category" : category.description} onSelect={handleSelectedCategory}>
 
             {!categories? 'No categories to display':  categories.map((cat) => {
                     return <Dropdown.Item key={cat.id} id={cat.id} eventKey={cat.description} onClick={handleOnClickCategory}>
@@ -145,9 +161,16 @@ function ViewEditSkills() {
     </Form.Group>
 
     <br></br> 
-    <Button variant="primary" type="submit" disabled={!description} onClick={refreshPage}>
+    <Button aria-label='Submit edited skill details' variant="primary" type="submit" disabled={!description} onClick={refreshPage}>
     Save
     </Button>
+
+    <div className="vr"></div>
+
+<Button aria-label='Delete selected skill' variant="primary" type="button" onClick={deleteSkill} disabled={!description}>
+    Delete Skill
+</Button>
+
     <Toaster toastOptions={{
     className: '',
     style: {

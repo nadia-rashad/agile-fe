@@ -42,6 +42,22 @@ function ViewEditCategories() {
             setSelectedCategory(categoryDetails[0]);
     }
 
+    const deleteCategory = async (event) => {
+        event.preventDefault()
+        await api.deleteCategory(selectedCategory.id).then((res) => {
+            if(res.data.status === 400){
+                toast("Category in use, it cannot be deleted");
+            }
+            else if(res.status === 200){
+                toast("Category sucessfully deleted")
+                setTimeout( window.location.reload(false), 30000);
+            } 
+            else {
+                toast(res.data.message)
+            }
+        })
+    }
+
     const onFormSubmit = async (event) => {
         event.preventDefault()
   
@@ -68,7 +84,7 @@ function ViewEditCategories() {
                 <Form.Label >Categories</Form.Label>
                 <br></br>
                     <Dropdown>
-                    <DropdownButton title={!selectedCategoryName ? "Select a category to edit" : selectedCategoryName} onSelect={handleSelectedCategory} >
+                    <DropdownButton aria-label='Dropdown menu to choose a category to edit' title={!selectedCategoryName ? "Select a category to edit" : selectedCategoryName} onSelect={handleSelectedCategory} >
 
                     {!categories? 'No categories to display':  categories.map((cat) => {
                         return <Dropdown.Item key={cat.id} id={cat.id} eventKey={`${cat.description}`} onClick={handleOnClickCategory}>
@@ -81,12 +97,18 @@ function ViewEditCategories() {
                 <br></br>
 
                 <Form.Label >Category Name</Form.Label>
-                <Form.Control type="text" onChange={onInputDescription} value={description} />
+                <Form.Control aria-label='Text field to edit category name'  type="text" onChange={onInputDescription} value={description} />
             </Form.Group>
 
             <br></br>
-            <Button variant="primary" type="submit" disabled={!description} >
+            <Button aria-label='Submit edited category details' variant="primary" type="submit" disabled={!description} >
                 Save
+            </Button>
+
+            <div className="vr"></div>
+
+            <Button aria-label='Delete selected category' variant="primary" type="button" onClick={deleteCategory} disabled={!description}>
+                Delete Category
             </Button>
 
             <Toaster toastOptions={{
