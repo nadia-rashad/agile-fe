@@ -1,4 +1,5 @@
-import '../styles/styles.css';
+import '../global-styles/styles.css';
+import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useState, useEffect } from "react";
@@ -12,6 +13,7 @@ import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 
 function StaffSkills(props){
+
     const [assignedSkills, setAssignedSkills] = useState([]);
     const [allSkills, setAllSkills] = useState([]); // comes from api call - this is all skills in the db
     const [strengths, setStrengths] = useState([]);
@@ -30,26 +32,30 @@ function StaffSkills(props){
     ])
 
     useEffect( () => {
-        async function fetchAllSkills() {
-            await api.fetchAllSkills().then((res) => {
-                setAllSkills(res.data);
-            })
+
+        try {
+            async function fetchAllSkills() {
+               await api.fetchAllSkills().then((res) => {
+                    setAllSkills(res.data);
+                })
+            }
+            fetchAllSkills();
+        } catch(err) {
+            console.log(err)
         }
-        fetchAllSkills();
+        
 
         async function fetchAssignedSkills() {
             await api.fetchAssignedSkills(await userData.id).then((res) => {
                 setAssignedSkills(res.data);
             })
         }
-        if(userData?.id){
+         if(userData?.id){
             fetchAssignedSkills();
-        }
+         }
         setStrengths(SkillStrength);
 
-    }, [
-        userData
-    ])
+    }, [userData])
 
     useEffect (() => {
         async function fetchTableData() {
@@ -110,21 +116,23 @@ function StaffSkills(props){
     
     return (
         <div  className="container">
-            <Form>
-            <Form.Label>Assign Skills</Form.Label>
+            <Form onSubmit={onFormAdd} aria-label="add skill form" data-testid='add skill form' >
+            <h2 aria-label='assign skills header' >Assign Skills</h2>
             <br/>
             <Form.Label>Skills</Form.Label>
-            <Dropdown>
-                <DropdownButton title={selectedNewSkill ? selectedNewSkill : "Select a Skill" } onSelect={handleSelectSkill}>
-                    {!allSkills? 'No Skills to display':  allSkills.map((skills) => {
-                        return <Dropdown.Item aria-label={`${skills.description} button`} value={skills.description} eventKey={skills.description} key={skills.id}  >{skills.description}</Dropdown.Item>
+
+            <Dropdown >
+                <DropdownButton data-testid='skill-dropdown' title={selectedNewSkill ? selectedNewSkill : "Select a Skill" } onSelect={handleSelectSkill} >
+                {!allSkills? 'No Skills to display':  allSkills.map((skills) => {
+                        return <Dropdown.Item aria-label={`${skills.description} button`} data-testid='skill-dropdown-item' value={skills.description} eventKey={skills.description} key={skills.id}  >{skills.description}</Dropdown.Item>
+
                     })}
                 </DropdownButton>
             </Dropdown>
-            <br/>
+        <br></br>
             <Form.Label>Strength</Form.Label>
             <Dropdown>
-                <DropdownButton title = { selectedStrength ? selectedStrength : "Select a Skill Strength" } onSelect = {handleSelectStrength} >
+                <DropdownButton title = { selectedStrength ? selectedStrength : "Select a Skill Strength" } onSelect = {handleSelectStrength} data-testid='strength-dropdown' >
                     {!strengths? 'Error, cannot find strength values': strengths.map((strengths) => {
                         return <Dropdown.Item aria-label={`${strengths} button`} value={strengths} eventKey={strengths} key={strengths}> {strengths}</Dropdown.Item>
                     })}
@@ -132,8 +140,9 @@ function StaffSkills(props){
             </Dropdown>
             <br/>
             <Form.Label>Expiry Date</Form.Label>
-            <DatePicker selected={expiryDate} onChange={(date) => setExpiryDate(date)} dateFormat="dd/MM/yyyy" aria-label="date picker"/>
-            <Button variant="primary" type="add" disabled={!selectedNewSkill} onClick={onFormAdd} > Add Skill </Button>
+
+            <DatePicker selected={expiryDate} onChange={(date) => setExpiryDate(date)} dateFormat="dd/MM/yyyy" data-testid='date-picker' aria-label="date picker"/>
+            <Button data-testid="add-skill" variant="primary" type="submit" disabled={!selectedNewSkill} onClick={onFormAdd} > Add Skill </Button>
             <Toaster toastOptions={{
                 className: '',
                 style: {
@@ -149,12 +158,11 @@ function StaffSkills(props){
                         try{
                             return <option value={skill.skillId}>{skill.skillId}</option>
                         } catch(error) {
-                            console.log(error)
                             return 'Skills Loading'
                         }
                     })}
                 </select>
-                <Button variant="primary" type="remove" onClick={onFormRemove} aria-label="remove skill button"> Remove Skill </Button>
+                <Button data-testid='remove-skill' variant="primary" type="remove" onClick={onFormRemove} aria-label="remove skill button"> Remove Skill </Button>
                 <Table striped bordered hover aria-label="assigned skills table">
                     <thead>
                         <tr>

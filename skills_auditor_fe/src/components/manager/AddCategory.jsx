@@ -1,4 +1,4 @@
-import '../styles/styles.css'
+import '../global-styles/styles.css'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import * as api from '../../api.js';
