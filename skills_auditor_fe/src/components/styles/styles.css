@@ -59,7 +59,7 @@ article h1 {
 
 thead {
   background: #93b48b;
-  color: white;
+  color: #354232;
 }
 
 tbody {
@@ -70,7 +70,7 @@ tbody {
 .dropdown-toggle.btn.btn-primary {
   background-color: #93b48b;
   border-color: #4e604a4d;
-  color: white;
+  color: #354232;
   font-weight: bold;
 }
 

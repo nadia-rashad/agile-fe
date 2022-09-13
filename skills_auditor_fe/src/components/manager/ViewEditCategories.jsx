@@ -84,7 +84,7 @@ function ViewEditCategories() {
                 <Form.Label >Categories</Form.Label>
                 <br></br>
                     <Dropdown>
-                    <DropdownButton title={!selectedCategoryName ? "Select a category to edit" : selectedCategoryName} onSelect={handleSelectedCategory} >
+                    <DropdownButton aria-label='Dropdown menu to choose a category to edit' title={!selectedCategoryName ? "Select a category to edit" : selectedCategoryName} onSelect={handleSelectedCategory} >
 
                     {!categories? 'No categories to display':  categories.map((cat) => {
                         return <Dropdown.Item key={cat.id} id={cat.id} eventKey={`${cat.description}`} onClick={handleOnClickCategory}>
@@ -97,17 +97,17 @@ function ViewEditCategories() {
                 <br></br>
 
                 <Form.Label >Category Name</Form.Label>
-                <Form.Control type="text" onChange={onInputDescription} value={description} />
+                <Form.Control aria-label='Text field to edit category name'  type="text" onChange={onInputDescription} value={description} />
             </Form.Group>
 
             <br></br>
-            <Button variant="primary" type="submit" disabled={!description} >
+            <Button aria-label='Submit edited category details' variant="primary" type="submit" disabled={!description} >
                 Save
             </Button>
 
             <div className="vr"></div>
 
-            <Button variant="primary" type="button" onClick={deleteCategory} disabled={!description}>
+            <Button aria-label='Delete selected category' variant="primary" type="button" onClick={deleteCategory} disabled={!description}>
                 Delete Category
             </Button>
 
