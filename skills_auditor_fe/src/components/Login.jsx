@@ -27,14 +27,13 @@ function Login({setToken, setUser}) {
     }, []);
    
     const onFormSubmit = async (e) => {
-        e.preventDefault()
-  
+      e.preventDefault()
+       
         const credentials = {
           email: email,
           password: password
         }
-
-      await api.checkUserCredentials(credentials).then((res) => {
+       await api.checkUserCredentials(credentials).then((res) => {
         setToken(res.data.token);
         setUser(res.data.details);
         localStorage.setItem('token', JSON.stringify(res.data.token) )

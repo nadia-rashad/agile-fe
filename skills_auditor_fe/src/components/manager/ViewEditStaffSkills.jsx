@@ -1,4 +1,4 @@
-import '../styles/styles.css';
+import '../global-styles/styles.css'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useState, useEffect } from "react";
@@ -10,6 +10,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import { SkillStrength } from '../utilities/SkillStrength';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
+
 
 function ViewEditStaffSkills(props) {
     const [assignedSkills, setAssignedSkills] = useState([]);
