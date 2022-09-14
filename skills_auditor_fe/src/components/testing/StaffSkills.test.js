@@ -22,7 +22,7 @@ describe('Staff - Staff Skill Component (Assigning/ Deleting skills)', () => {
         expect(screen.getByRole("button", {name: 'Select a Skill'})).toBeInTheDocument();
         expect(screen.getByRole("button", {name: 'Select a Skill Strength'})).toBeInTheDocument();
         expect(screen.getByRole("button", {name: 'Add Skill'})).toBeInTheDocument();
-        expect(screen.getByRole("button", {name: 'Remove Skill'})).toBeInTheDocument();
+        expect(screen.getByTestId("remove-skill")).toBeInTheDocument();
         expect(screen.getByRole("columnheader", {name: 'ID'})).toBeInTheDocument();
         expect(screen.getByRole("columnheader", {name: 'Skill name'})).toBeInTheDocument();
         expect(screen.getByRole("columnheader", {name: 'Skill Category'})).toBeInTheDocument();
@@ -75,9 +75,13 @@ describe('Staff - Staff Skill Component (Assigning/ Deleting skills)', () => {
 
         const fetchSkillsDataMock = jest.spyOn(api, "fetchSkillsTableData").mockImplementation(() => Promise.resolve(skillTableData));
 
+        const fetchSkillByDescMock = jest.spyOn(api, "fetchSkillByDescription").mockImplementation(() => Promise.resolve( {data : [
+          { category_id: 1, description: "Terraform 3", id: 5 }
+         
+        ]}));
+
         const assignSkillMock = jest.spyOn(api, "assignSkill").mockImplementation(() => Promise.resolve(newSkill));
 
-        jest.spyOn(api, "fetchSkillByDescription").mockImplementation(() => Promise.resolve());
 
         render(<StaffSkills userDetails={userDetails} />);
 
@@ -103,6 +107,8 @@ describe('Staff - Staff Skill Component (Assigning/ Deleting skills)', () => {
         await waitFor(()=> expect(fetchAssignedSkillsMock).toHaveBeenCalled());
         await waitFor(()=> expect(fetchSkillsDataMock).toHaveBeenCalled());
         await waitFor(()=> expect(assignSkillMock).toHaveBeenCalled());
+        await waitFor(()=> expect(fetchSkillByDescMock).toHaveBeenCalled());
+  
     });
 
     test('a skill is deleted successfully', async () => {
@@ -126,7 +132,7 @@ describe('Staff - Staff Skill Component (Assigning/ Deleting skills)', () => {
 
         const deleteSkill = jest.spyOn(api, "deleteStaffSkill").mockImplementationOnce(() => Promise.resolve(skillTableAfterDeletion));
 
-        userEvent.click(await screen.findByRole("button", {name: "Remove Skill"}));
+        userEvent.click(await screen.findByTestId("remove-skill"));
 
         const fetchNewSkills = jest.spyOn(api, "fetchAllSkills").mockImplementation(() => Promise.resolve(skillTableAfterDeletion))
 
