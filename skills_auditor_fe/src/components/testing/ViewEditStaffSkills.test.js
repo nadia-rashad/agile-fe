@@ -4,11 +4,11 @@
 
 import ViewEditStaffSkills from "../manager/ViewEditStaffSkills";
 import React from 'react';
-import {fireEvent, render, screen, waitFor} from '@testing-library/react';
+import {render, screen, waitFor} from '@testing-library/react';
 import '@testing-library/jest-dom';
 import * as api from'../../api';
 import userEvent from '@testing-library/user-event';
-import {managerUserDetails, skillResp, assignedSkillsResp, skillTableData, skillTableAfterDeletion, newSkill, assignedStaff } from "./test_data"
+import {managerUserDetails, skillResp, assignedSkillsResp, assignedStaff } from "./test_data"
 
 describe('Manager - Staff Skill Component (Viewing/Assigning/Deleting skills of subordinates and self)', () => {
 
@@ -18,6 +18,7 @@ describe('Manager - Staff Skill Component (Viewing/Assigning/Deleting skills of 
 
     test("should render buttons, dropdowns and table correctly", async () => {
         render(<ViewEditStaffSkills userDetails={managerUserDetails}/>);
+        
         expect(screen.getByRole("button", {name: 'Select a User'})).toBeInTheDocument();
         expect(screen.getByRole("button", {name: 'Select a Skill'})).toBeInTheDocument();
         expect(screen.getByRole("button", {name: 'Select a Skill Strength'})).toBeInTheDocument();
@@ -33,7 +34,6 @@ describe('Manager - Staff Skill Component (Viewing/Assigning/Deleting skills of 
 
     test("StaffSkills component calls fetchAssignedStaff for signed in user and displays the staff in the dropdown on screen", async () => {
         const fetchStaff = jest.spyOn(api, "fetchAssignedStaff").mockImplementation(() => Promise.resolve(assignedStaff));
-    
         render(<ViewEditStaffSkills userDetails={managerUserDetails}/>);
 
         await waitFor(() => expect(fetchStaff).toHaveBeenCalledWith(managerUserDetails.details.id));
@@ -51,9 +51,8 @@ describe('Manager - Staff Skill Component (Viewing/Assigning/Deleting skills of 
 
     test("StaffSkills component calls fetchAllSkills and displays the skills in the dropdown on screen", async () => {
         const fetchSkills = jest.spyOn(api, "fetchAllSkills").mockImplementation(() => Promise.resolve(skillResp))
-        
         render(<ViewEditStaffSkills userDetails={managerUserDetails}/>);
-        
+
         await waitFor(() => expect(fetchSkills).toHaveBeenCalled());
 
         const skillDropdown = screen.getByTestId("skill-dropdown");
@@ -68,7 +67,6 @@ describe('Manager - Staff Skill Component (Viewing/Assigning/Deleting skills of 
     test("StaffSkills component calls fetchAssignedSkills for selected user", async () => {
         const fetchStaff = jest.spyOn(api, "fetchAssignedStaff").mockImplementation(() => Promise.resolve(assignedStaff));
         const fetchSkills = jest.spyOn(api, "fetchAssignedSkills").mockImplementation(() => Promise.resolve(assignedSkillsResp))
-
         render(<ViewEditStaffSkills userDetails={managerUserDetails}/>);
 
         await waitFor(() => expect(fetchStaff).toHaveBeenCalledWith(managerUserDetails.details.id));
@@ -82,19 +80,13 @@ describe('Manager - Staff Skill Component (Viewing/Assigning/Deleting skills of 
     });
 
     test("StaffSkills component calls populates the table with the selected users assigned skills", async () => {
-        const fetchSkills = jest.spyOn(api, "fetchAllSkills").mockImplementation(() => Promise.resolve(skillResp))
+        const fetchSkills = jest.spyOn(api, "fetchAllSkills").mockImplementation(() => Promise.resolve(skillResp));
+        render(<ViewEditStaffSkills userDetails={managerUserDetails}/>);
 
-        // jest.spyOn(api, "fetchAssignedSkills").mockImplementation(() => Promise.resolve(assignedSkillsResp));  
-
-        // jest.spyOn(api, "fetchSkillsTableData").mockImplementation(() => Promise.resolve(skillTableData));
-
-        render(<ViewEditStaffSkills userDetails={managerUserDetails} />);
-        
         await waitFor(()=> expect(fetchSkills).toHaveBeenCalled());
 
         const skillDropdown =  screen.getByTestId("skill-dropdown");
         userEvent.click(skillDropdown);
-
         userEvent.click(await screen.findByRole("button", {name: "Select a Skill"}));
 
         expect( screen.getAllByText("Javascript")[0]).toBeInTheDocument();
