@@ -6,6 +6,7 @@ import DropdownButton from 'react-bootstrap/DropdownButton';
 import * as api from '../../api.js';
 import { useState, useEffect } from "react";
 import toast, { Toaster } from 'react-hot-toast';
+import React from 'react';
 
 function ViewEditCategories() {
     const [description, setDescription] = useState('');
@@ -81,10 +82,10 @@ function ViewEditCategories() {
         <div  className="container">
             <Form onSubmit={onFormSubmit}>
             <Form.Group className="mb-3">
-                <Form.Label >Categories</Form.Label>
+                <Form.Label role="label">Categories</Form.Label>
                 <br></br>
                     <Dropdown>
-                    <DropdownButton aria-label='Dropdown menu to choose a category to edit' title={!selectedCategoryName ? "Select a category to edit" : selectedCategoryName} onSelect={handleSelectedCategory} >
+                    <DropdownButton data-testid="category-dropdown" aria-label='Dropdown menu to choose a category to edit' title={!selectedCategoryName ? "Select a category to edit" : selectedCategoryName} onSelect={handleSelectedCategory} >
 
                     {!categories? 'No categories to display':  categories.map((cat) => {
                         return <Dropdown.Item key={cat.id} id={cat.id} eventKey={`${cat.description}`} onClick={handleOnClickCategory}>
@@ -96,7 +97,7 @@ function ViewEditCategories() {
                     </Dropdown> 
                 <br></br>
 
-                <Form.Label >Category Name</Form.Label>
+                <Form.Label role="label">Category Name</Form.Label>
                 <Form.Control aria-label='Text field to edit category name'  type="text" onChange={onInputDescription} value={description} />
             </Form.Group>
 

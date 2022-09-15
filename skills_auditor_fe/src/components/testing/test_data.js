@@ -95,6 +95,13 @@ export const categoryList = {
     ],
 };
 
+export const categoryResp = {
+    data: [
+        { description: "Office365", id: 1 },
+        { description: "Programming", id: 2 },
+    ],
+  };
+
 export const assignedStaff = {
     data : [
         {
