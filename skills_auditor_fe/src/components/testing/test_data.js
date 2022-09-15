@@ -14,7 +14,7 @@ export const skillResp = {
     data: [
       { category_id: 2, description: "Javascript", id: 4 },
       { category_id: 1, description: "Terraform 3", id: 5 },
-      { category_id: 3, description: "Excesmnsns", id: 6 },
+      { category_id: 3, description: "Excel", id: 6 },
     ],
   };
 
@@ -74,3 +74,10 @@ export const newSkill = {
         skillStrength: "Basic"
     }
 }
+
+export const categoryList = {
+    data: [
+      { description: "Office365", id: 1 },
+      { description: "Programming", id: 2 },
+    ],
+};
