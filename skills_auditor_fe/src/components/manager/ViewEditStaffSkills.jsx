@@ -10,6 +10,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import { SkillStrength } from '../utilities/SkillStrength';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
+import React from 'react';
 
 
 function ViewEditStaffSkills(props) {
@@ -135,34 +136,34 @@ function ViewEditStaffSkills(props) {
             <br/>
             <Form.Label>User ID:</Form.Label>
             <Dropdown>
-                <DropdownButton title={selectedUser ? selectedUser : "Select a User" } onSelect={handleSelectUser}>
+                <DropdownButton data-testid="user-dropdown" title={selectedUser ? selectedUser : "Select a User" } onSelect={handleSelectUser}>
                     {!availableUsers? 'No Users to display':  availableUsers.map((user) => {
-                        return <Dropdown.Item eventKey={user.id}>{user.id + ": " + user.firstName + " " + user.surname}</Dropdown.Item>
+                        return <Dropdown.Item key={user.id} eventKey={user.id}>{user.id + ": " + user.firstName + " " + user.surname}</Dropdown.Item>
                     })}
                 </DropdownButton>
             </Dropdown>
             <br/>
             <Form.Label>Skills</Form.Label>
             <Dropdown>
-                <DropdownButton title={selectedNewSkill ? selectedNewSkill : "Select a Skill" } onSelect={handleSelectSkill}>
+                <DropdownButton data-testid="skill-dropdown" title={selectedNewSkill ? selectedNewSkill : "Select a Skill" } onSelect={handleSelectSkill}>
                     {!allSkills? 'No Skills to display':  allSkills.map((skill) => {
-                        return <Dropdown.Item eventKey={skill.description}>{skill.description}</Dropdown.Item>
+                        return <Dropdown.Item key={skill.description} eventKey={skill.description}>{skill.description}</Dropdown.Item>
                     })}
                 </DropdownButton>
             </Dropdown>
             <br/>
             <Form.Label>Strength</Form.Label>
             <Dropdown>
-                <DropdownButton title = { selectedStrength ? selectedStrength : "Select a Skill Strength" } onSelect = {handleSelectStrength} >
+                <DropdownButton data-testid="strength-dropdown" title = { selectedStrength ? selectedStrength : "Select a Skill Strength" } onSelect = {handleSelectStrength} >
                     {!strengths? 'Error, cannot find strength values': strengths.map((strengths) => {
-                        return <Dropdown.Item eventKey={strengths}> {strengths}</Dropdown.Item>
+                        return <Dropdown.Item key={strengths} eventKey={strengths}>{strengths}</Dropdown.Item>
                     })}
                 </DropdownButton>
             </Dropdown>
             <br/>
             <Form.Label>Expiry Date</Form.Label>
-            <DatePicker selected={expiryDate} onChange={(date) => setExpiryDate(date)} dateFormat="dd/MM/yyyy"/>
-            <Button variant="primary" type="add" disabled={!selectedNewSkill} onClick={onFormAdd} > Add Skill </Button>
+            <DatePicker data-testid="expiry-date-picker" selected={expiryDate} onChange={(date) => setExpiryDate(date)} dateFormat="dd/MM/yyyy"/>
+            <Button data-testid="add-skill" variant="primary" type="add" disabled={!selectedNewSkill} onClick={onFormAdd} > Add Skill </Button>
             <Toaster toastOptions={{
                 className: '',
                 style: {
@@ -183,7 +184,7 @@ function ViewEditStaffSkills(props) {
                         }
                     })}
                 </select>
-                <Button variant="primary" type="remove" onClick={onFormRemove} > Remove Skill </Button>
+                <Button data-testid="remove-skill" variant="primary" type="remove" onClick={onFormRemove} > Remove Skill </Button>
                 <Table striped bordered hover>
                     <thead>
                         <tr>
