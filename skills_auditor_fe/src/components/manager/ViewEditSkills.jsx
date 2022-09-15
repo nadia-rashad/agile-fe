@@ -1,4 +1,5 @@
 import '../global-styles/styles.css'
+import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Dropdown from 'react-bootstrap/Dropdown';
@@ -85,17 +86,13 @@ function ViewEditSkills() {
                 toast("Skill in use, it cannot be deleted");
             }
             else if(res.status === 200){
-                toast("Skill sucessfully deleted")
-                setTimeout( window.location.reload(false), 30000);
+                toast("Skill successfully deleted")
+                setTimeout( window.location.reload(false), 2000);
             } 
             else {
                 toast(res.data.message)
             }
         })
-    }
-
-    const refreshPage = () =>{
-        window.location.reload(false);
     }
 
     const onFormSubmit = async (event) => {
@@ -114,6 +111,7 @@ function ViewEditSkills() {
                 }
                 else {
                     toast("Skill successfully updated")
+                    setTimeout(window.location.reload(false), 2000);
                 }
             })
         } catch(err) {
@@ -127,7 +125,7 @@ function ViewEditSkills() {
     <Form onSubmit={onFormSubmit}>
 
     <Form.Group className="mb-3">
-        <Form.Label >Skills</Form.Label>
+        <Form.Label role="label" >Skills</Form.Label>
         <Dropdown>
             <DropdownButton aria-label='Dropdown menu to choose a skill to edit' title={!selectedSkillName ? "Select a skill to edit" : selectedSkillName} onSelect={handleSelectedSkill}>
             {!skills? 'No skills to display':  skills.map((skill) => {
@@ -141,27 +139,25 @@ function ViewEditSkills() {
     </Form.Group>
     <br></br>
     <Form.Group>
-        <Form.Label >Skill Name</Form.Label>
+        <Form.Label role="label" >Skill Name</Form.Label>
         <Form.Control aria-label='Text field to edit skill name' type="text" onChange={onInputDescription} value={description} />
     </Form.Group>
     <br></br> 
     <Form.Group> 
-        <Form.Label >Skill Category</Form.Label>
+        <Form.Label role="label" >Skill Category</Form.Label>
         <Dropdown>
-            <DropdownButton aria-label='Dropdown menu to edit skill category' title={!category ? "Select a category" : category.description} onSelect={handleSelectedCategory}>
+        <DropdownButton data-testid='category-dropdown' aria-label='Dropdown menu to edit skill category' title={!category ? "Select a category" : category.description} onSelect={handleSelectedCategory}>
 
-            {!categories? 'No categories to display':  categories.map((cat) => {
-                    return <Dropdown.Item key={cat.id} id={cat.id} eventKey={cat.description} onClick={handleOnClickCategory}>
-                    {cat.description} 
-                    </Dropdown.Item>
-                }) }
-            </DropdownButton>
+        {!categories? 'No categories to display':  categories.map((cat) => {
+                return <Dropdown.Item key={cat.id} id={cat.id} eventKey={cat.description} onClick={handleOnClickCategory}> {cat.description} </Dropdown.Item>
+            }) }
+        </DropdownButton>
         </Dropdown> 
         <br></br>
     </Form.Group>
 
     <br></br> 
-    <Button aria-label='Submit edited skill details' variant="primary" type="submit" disabled={!description} onClick={refreshPage}>
+    <Button aria-label='Submit edited skill details' variant="primary" type="submit" disabled={!description}>
     Save
     </Button>
 

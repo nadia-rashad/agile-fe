@@ -91,6 +91,6 @@ describe('Manager - Staff Skill Component (Viewing/Assigning/Deleting skills of 
 
         expect( screen.getAllByText("Javascript")[0]).toBeInTheDocument();
         expect( screen.getAllByText("Terraform 3")[0]).toBeInTheDocument();
-        expect( screen.getAllByText("Excesmnsns")[0]).toBeInTheDocument();
+        expect( screen.getAllByText("Excel")[0]).toBeInTheDocument();
     });
 })

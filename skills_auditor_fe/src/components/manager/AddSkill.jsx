@@ -1,4 +1,5 @@
 import '../global-styles/styles.css';
+import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useState, useEffect } from "react";
@@ -61,12 +62,13 @@ function AddSkill(){
     return (
         <div  className="container">
             <Form onSubmit={onFormSubmit}>
-             <Form.Label >Skill Name</Form.Label>
+             <Form.Label role="label" >Skill Name</Form.Label>
              <Form.Control aria-label='Text field to enter skill name' type="text" onChange={onInputSkillName} value={skillName} />
 
            <br></br>
+           <Form.Label role="label" >Skill Category</Form.Label>
              <Dropdown>
-             <DropdownButton aria-label='Dropdown menu to choose the skill category' title={selectedCategory ? selectedCategory : "Categories"} onSelect={handleSelect} >
+             <DropdownButton aria-label='Dropdown menu to choose the skill category' title={selectedCategory ? selectedCategory : "Select a category"} onSelect={handleSelect} >
 
              {!categories? 'No Categories to display':  categories.map((categories) => {
                      return <Dropdown.Item value={categories.description} eventKey={categories.description} key={categories.id}  >{categories.description}</Dropdown.Item>
