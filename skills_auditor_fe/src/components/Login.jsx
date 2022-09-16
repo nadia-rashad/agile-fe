@@ -17,15 +17,13 @@ function Login({setToken, setUser}) {
     const onInputPassword = ({target:{value}}) => setPassword(value);
     const [authenticated, setauthenticated] = useState(null);
 
-    const notify = () => toast('Successful Login');
-
     useEffect(() => {
       const loggedInUserToken = localStorage.getItem("token");
       if (loggedInUserToken) {
         setauthenticated(loggedInUserToken);
       }
     }, []);
-   
+
     const onFormSubmit = async (e) => {
       e.preventDefault()
        
@@ -33,18 +31,24 @@ function Login({setToken, setUser}) {
           email: email,
           password: password
         }
-       await api.checkUserCredentials(credentials).then((res) => {
-        setToken(res.data.token);
-        setUser(res.data.details);
-        localStorage.setItem('token', JSON.stringify(res.data.token) )
-        localStorage.setItem('user', JSON.stringify(res.data.details))
+        await api.checkUserCredentials(credentials).then((res) => {
+          if(res.data.token !== undefined && res.data.details !== undefined){
+            setToken(res.data.token);
+            setUser(res.data.details);
+            localStorage.setItem('token', JSON.stringify(res.data.token) )
+            localStorage.setItem('user', JSON.stringify(res.data.details))
 
-        notify();
-      
+            toast("Successful Login");
+          }
+          else{
+            setEmail("");
+            setPassword("");
+            toast("Incorrect login details, try again.");
+          }
         }
-       ).catch(err => {
-        toast("Unsuccessful login, please try again")
-       })
+        ).catch(err => {
+          toast("Unsuccessful login, please try again")
+        })
       }
 
     return(
@@ -55,11 +59,11 @@ function Login({setToken, setUser}) {
             <Form onSubmit={onFormSubmit} aria-label="login form" id='login_form' >
               <Form.Group className="mb-3" controlId="formBasicEmail"  >
                 <Form.Label>Email Address:</Form.Label>
-                <Form.Control aria-label='Text feild to enter email' type="email"  onChange={onInputEmail} data-testid='username_input'/>
+                <Form.Control aria-label='Text feild to enter email' type="email" onChange={onInputEmail} data-testid='username_input' value={email}/>
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicPassword">
                 <Form.Label>Password:</Form.Label>
-                <Form.Control aria-label='Text feild to enter password' type="password" data-testid='password_input' onChange={onInputPassword}/>
+                <Form.Control aria-label='Text feild to enter password' type="password" data-testid='password_input' onChange={onInputPassword} value={password}/>
               </Form.Group>
               <Button aria-label='Button to login' variant="primary" type="submit" data-testid='submit' disabled={!email || !password}>
                 Submit
